@@ -14,6 +14,13 @@ const variablesOpcionales = [
   'MAIL_PASS'
 ]
 
+export function correoListo() {
+  return Boolean(
+    process.env.MAIL_USER?.trim() &&
+    process.env.MAIL_PASS?.trim()
+  )
+}
+
 export function revisarVariablesEntorno() {
   const faltantes = variablesRequeridas.filter(
     (nombre) => !process.env[nombre]?.trim()

@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import 'dotenv/config'
 
-import transporter from './mail.js'
+import { enviarCorreo, correoConfigurado } from './mail.js'
 import pool from './db.js'
 import { asegurarRecuperacionContrasena } from './setupRecuperacion.js'
 import {
@@ -17,7 +17,8 @@ import {
 } from './dbErrors.js'
 import {
     imprimirEstadoEntorno,
-    revisarVariablesEntorno
+    revisarVariablesEntorno,
+    correoListo
 } from './envConfig.js'
 
 import recuperarContrasenaTemplate
@@ -101,7 +102,8 @@ app.get('/api/health', async (req, res) => {
             db: true,
             env: {
                 listo: env.listo,
-                faltantes: env.faltantes
+                faltantes: env.faltantes,
+                correo: correoListo()
             }
         })
     } catch (error) {
@@ -111,7 +113,8 @@ app.get('/api/health', async (req, res) => {
             mensaje: mensajeErrorBd(error),
             env: {
                 listo: env.listo,
-                faltantes: env.faltantes
+                faltantes: env.faltantes,
+                correo: correoListo()
             }
         })
     }
@@ -369,7 +372,7 @@ app.get('/api/test-correo', async (req, res) => {
 
     try {
 
-        await transporter.sendMail({
+        await enviarCorreo({
 
             from: process.env.MAIL_USER || 'Serenia',
 
@@ -467,9 +470,17 @@ app.post(
                 respuesta.success === 1
             ) {
 
+                if (!correoConfigurado()) {
+                    return res.status(503).json({
+                        success: 0,
+                        mensaje:
+                            'El envío de correos no está configurado. Agrega MAIL_USER y MAIL_PASS en Render.'
+                    })
+                }
+
                 try {
 
-                    await transporter.sendMail({
+                    await enviarCorreo({
 
                         from:
                             `Serenia <${process.env.MAIL_USER}>`,
@@ -498,6 +509,7 @@ app.post(
                         success: 0,
 
                         mensaje:
+                            mailError.message ||
                             'No se pudo enviar el correo. Intenta más tarde'
 
                     })

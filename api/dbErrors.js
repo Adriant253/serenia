@@ -1,3 +1,5 @@
+import { revisarVariablesEntorno } from './envConfig.js'
+
 const CODIGOS_ERROR_BD = new Set([
   'ECONNREFUSED',
   'ETIMEDOUT',
@@ -13,8 +15,18 @@ export function esErrorConexionDb(error) {
 }
 
 export function mensajeErrorBd(error) {
+  const envListo = revisarVariablesEntorno().listo
+
   if (error?.code === 'ETIMEDOUT' || error?.code === 'ECONNREFUSED') {
-    return 'No se pudo conectar con la base de datos. En Render, configura DB_PASSWORD. En Google Cloud SQL, agrega 0.0.0.0/0 en Authorized networks (Connections).'
+    if (envListo) {
+      return 'Cloud SQL bloquea la conexión desde Render. En Google Cloud Console → SQL → Connections → Authorized networks, agrega 0.0.0.0/0 y guarda.'
+    }
+
+    return 'No se pudo conectar con la base de datos. Configura DB_PASSWORD en Render y abre Authorized networks en Cloud SQL.'
+  }
+
+  if (error?.code === 'ER_ACCESS_DENIED_ERROR') {
+    return 'Usuario o contraseña de la base de datos incorrectos. Revisa DB_USER y DB_PASSWORD en Render.'
   }
 
   if (error?.code === 'ER_CANT_AGGREGATE_2COLLATIONS') {

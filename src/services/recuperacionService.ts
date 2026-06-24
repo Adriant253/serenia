@@ -2,6 +2,7 @@ import {
   API_BASE,
   mensajeErrorRed
 } from '../config/api'
+import { fetchConTimeout } from '../config/fetchConTimeout'
 import { parseJsonResponse } from '../config/parseJsonResponse'
 
 export async function solicitarRecuperacion(
@@ -10,7 +11,7 @@ export async function solicitarRecuperacion(
 ) {
 
   try {
-    const response = await fetch(
+    const response = await fetchConTimeout(
       `${API_BASE}/api/solicitar-recuperacion`,
       {
         method: 'POST',
@@ -21,10 +22,11 @@ export async function solicitarRecuperacion(
           email: email.trim(),
           token
         })
-      }
+      },
+      60_000
     )
 
-    return parseJsonResponse(response)
+    return parseJsonResponse(response, true)
   } catch (error) {
     throw new Error(mensajeErrorRed(error))
   }
@@ -37,7 +39,7 @@ export async function cambiarContrasenaService(
 ) {
 
   try {
-    const response = await fetch(
+    const response = await fetchConTimeout(
       `${API_BASE}/api/cambiar-contrasena`,
       {
         method: 'POST',
@@ -52,7 +54,7 @@ export async function cambiarContrasenaService(
       }
     )
 
-    return parseJsonResponse(response)
+    return parseJsonResponse(response, true)
   } catch (error) {
     throw new Error(mensajeErrorRed(error))
   }
