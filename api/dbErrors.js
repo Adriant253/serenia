@@ -14,7 +14,7 @@ export function esErrorConexionDb(error) {
 
 export function mensajeErrorBd(error) {
   if (error?.code === 'ETIMEDOUT' || error?.code === 'ECONNREFUSED') {
-    return 'No se pudo conectar con la base de datos. Verifica tu conexión a internet y que el servidor MySQL esté accesible.'
+    return 'No se pudo conectar con la base de datos. En Render, configura DB_PASSWORD. En Google Cloud SQL, agrega 0.0.0.0/0 en Authorized networks (Connections).'
   }
 
   if (error?.code === 'ER_CANT_AGGREGATE_2COLLATIONS') {

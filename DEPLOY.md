@@ -136,3 +136,47 @@ npm run dev
 - El plan gratuito de Render **duerme** la API tras inactividad; el primer acceso puede tardar ~30 s.
 - `VITE_*` se inyectan en **build time** en Vercel: si cambias `VITE_API_URL`, haz **Redeploy**.
 - No subas `.env` a GitHub (ya está en `.gitignore`).
+
+---
+
+## Arreglar errores comunes en producción
+
+### "GOOGLE_CLIENT_ID no configurado en el servidor"
+
+En **Render** → tu servicio → **Environment**, agrega:
+
+| Variable | Valor |
+|----------|-------|
+| `GOOGLE_CLIENT_ID` | `473919619101-531fd2bekl1663o50j7e9oamnjdu3upv.apps.googleusercontent.com` |
+| `GOOGLE_CLIENT_SECRET` | el secret de tu `.env` local |
+
+Guarda y espera el redeploy.
+
+### "No se pudo conectar con la base de datos"
+
+1. En **Render** → Environment, agrega `DB_PASSWORD` (la de tu `.env`).
+2. En **Google Cloud Console** → SQL → tu instancia → **Connections** → **Authorized networks** → **Add network**:
+   - Name: `Render`
+   - Network: `0.0.0.0/0` (para pruebas)
+3. Verifica que la instancia tenga **Public IP** activada.
+4. Prueba: `https://serenia-api.onrender.com/api/health`
+
+### Google: "Error 400: origin_mismatch"
+
+En **Google Cloud Console** → Credenciales → tu cliente OAuth → **Authorized JavaScript origins**, agrega la URL exacta de Vercel (la de la barra del navegador), por ejemplo:
+
+```
+https://serenia-xxxxx.vercel.app
+```
+
+Sin `/` al final.
+
+### Variables que debes poner manualmente en Render
+
+```
+DB_PASSWORD=...
+GOOGLE_CLIENT_SECRET=...
+FRONTEND_URL=https://TU-URL.vercel.app
+MAIL_USER=...
+MAIL_PASS=...
+```

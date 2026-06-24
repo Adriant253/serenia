@@ -15,6 +15,10 @@ import {
     esErrorConexionDb,
     mensajeErrorBd
 } from './dbErrors.js'
+import {
+    imprimirEstadoEntorno,
+    revisarVariablesEntorno
+} from './envConfig.js'
 
 import recuperarContrasenaTemplate
 from './templates/recuperarContrasenaTemplate.js'
@@ -29,10 +33,36 @@ const origenesPermitidos = [
     process.env.FRONTEND_URL
 ].filter(Boolean)
 
+function origenPermitido(origin) {
+    if (!origin) {
+        return true
+    }
+
+    if (origenesPermitidos.includes(origin)) {
+        return true
+    }
+
+    try {
+        const { hostname } = new URL(origin)
+        return hostname.endsWith('.vercel.app')
+    } catch {
+        return false
+    }
+}
+
 app.use(cors({
-    origin: origenesPermitidos
+    origin(origin, callback) {
+        if (origenPermitido(origin)) {
+            callback(null, true)
+            return
+        }
+
+        callback(null, false)
+    }
 }))
 app.use(express.json())
+
+imprimirEstadoEntorno()
 
 try {
     await asegurarRecuperacionContrasena(pool)
@@ -62,14 +92,27 @@ app.get('/test', (req, res) => {
 
 app.get('/api/health', async (req, res) => {
 
+    const env = revisarVariablesEntorno()
+
     try {
         await pool.query('SELECT 1')
-        res.json({ ok: true, db: true })
+        res.json({
+            ok: true,
+            db: true,
+            env: {
+                listo: env.listo,
+                faltantes: env.faltantes
+            }
+        })
     } catch (error) {
         res.status(503).json({
             ok: false,
             db: false,
-            mensaje: mensajeErrorBd(error)
+            mensaje: mensajeErrorBd(error),
+            env: {
+                listo: env.listo,
+                faltantes: env.faltantes
+            }
         })
     }
 

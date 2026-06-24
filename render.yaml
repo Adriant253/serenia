@@ -9,3 +9,25 @@ services:
     envVars:
       - key: NODE_VERSION
         value: "22"
+      - key: GOOGLE_CLIENT_ID
+        value: 473919619101-531fd2bekl1663o50j7e9oamnjdu3upv.apps.googleusercontent.com
+      - key: DB_HOST
+        value: 34.133.136.156
+      - key: DB_USER
+        value: adrian
+      - key: DB_NAME
+        value: serenia
+      - key: DB_PORT
+        value: "3306"
+      - key: GOOGLE_CALLBACK_URL
+        value: https://serenia-api.onrender.com/api/auth/google/callback
+      - key: DB_PASSWORD
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: MAIL_USER
+        sync: false
+      - key: MAIL_PASS
+        sync: false

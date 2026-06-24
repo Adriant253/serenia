@@ -1,3 +1,11 @@
+import { ES_PRODUCCION } from './api'
+
+function mensajeSinConexion(): string {
+  return ES_PRODUCCION
+    ? 'No se pudo conectar con la API. Verifica que Render esté activo y VITE_API_URL en Vercel.'
+    : 'No se pudo conectar con el servidor. Ejecuta: npm run dev'
+}
+
 export async function parseJsonResponse(
   response: Response,
   permitirErrorJson = false
@@ -7,7 +15,7 @@ export async function parseJsonResponse(
   if (!text.trim()) {
     throw new Error(
       !response.ok
-        ? 'No se pudo conectar con el servidor. Reinicia el proyecto con: npm run dev'
+        ? mensajeSinConexion()
         : 'Respuesta vacía del servidor'
     )
   }
@@ -19,7 +27,7 @@ export async function parseJsonResponse(
   } catch {
     throw new Error(
       !response.ok
-        ? 'No se pudo conectar con el servidor. Reinicia el proyecto con: npm run dev'
+        ? mensajeSinConexion()
         : 'Respuesta inválida del servidor'
     )
   }
