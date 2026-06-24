@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <clipPath id="circle-clip">
+      <circle cx="16" cy="16" r="14.5"/>
+    </clipPath>
+    <radialGradient id="bg-grad" cx="45%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="#d6e8e4"/>
+      <stop offset="100%" stop-color="#a8c8c0"/>
+    </radialGradient>
+    <radialGradient id="wave-grad" cx="50%" cy="60%" r="60%">
+      <stop offset="0%" stop-color="#b8d8d0"/>
+      <stop offset="100%" stop-color="#7ab0a8"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background circle fill -->
+  <circle cx="16" cy="16" r="14.5" fill="url(#bg-grad)"/>
+
+  <!-- Wave shapes clipped to circle -->
+  <g clip-path="url(#circle-clip)">
+    <!-- Large wave bottom -->
+    <path d="M1 22 Q6 17 11 21 Q16 25 21 20 Q26 15 31 19 L31 32 L1 32 Z"
+          fill="url(#wave-grad)" opacity="0.85"/>
+
+    <!-- Mid wave -->
+    <path d="M1 20 Q5 15 10 18 Q15 22 20 17 Q25 12 31 16 L31 24 Q26 20 21 24 Q16 28 11 24 Q6 20 1 24 Z"
+          fill="#8dbfb8" opacity="0.7"/>
+
+    <!-- Leaf 1 - upper left, pointing upper right -->
+    <path d="M8 14 Q5 8 10 5 Q16 3 14 10 Q13 13 8 14 Z"
+          fill="#4a8a7e"/>
+    <path d="M8 14 Q11 9 14 10" fill="none" stroke="#3a7068" stroke-width="0.6" stroke-linecap="round"/>
+
+    <!-- Leaf 2 - right, pointing down-right -->
+    <path d="M16 11 Q22 8 24 14 Q25 19 19 17 Q15 15 16 11 Z"
+          fill="#5a9a8e"/>
+    <path d="M16 11 Q20 13 19 17" fill="none" stroke="#3a7068" stroke-width="0.6" stroke-linecap="round"/>
+
+    <!-- Leaf 3 - lower center, pointing down-left -->
+    <path d="M13 17 Q10 22 14 25 Q18 27 19 22 Q19 18 13 17 Z"
+          fill="#4a8a7e"/>
+    <path d="M13 17 Q16 21 19 22" fill="none" stroke="#3a7068" stroke-width="0.6" stroke-linecap="round"/>
+  </g>
+
+  <!-- Circle border -->
+  <circle cx="16" cy="16" r="14.5" fill="none" stroke="#3a706a" stroke-width="1.2"/>
+</svg>

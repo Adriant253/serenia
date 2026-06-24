@@ -1,0 +1,223 @@
+.perfil-page {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.perfil-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.perfil-avatar-grande {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.perfil-hero h1 {
+  color: var(--color-accent);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.perfil-hero p {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.perfil-cuenta,
+.perfil-form,
+.perfil-temas {
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
+  padding: 28px 32px;
+  box-shadow: 0 4px 16px var(--color-shadow);
+  border: 1px solid var(--color-border);
+}
+
+.perfil-cuenta h2,
+.perfil-form h2,
+.perfil-temas h2 {
+  color: var(--color-accent);
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+}
+
+.perfil-temas-desc {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 16px;
+}
+
+.perfil-temas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+.tema-opcion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 10px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--color-text);
+  transition: border-color 0.2s, background 0.2s;
+  font-family: inherit;
+}
+
+.tema-opcion:hover {
+  border-color: var(--color-accent);
+}
+
+.tema-opcion.activo {
+  border-color: var(--color-accent);
+  background: var(--color-accent-soft);
+}
+
+.tema-aplicado-msg {
+  margin-bottom: 12px;
+}
+
+.tema-preview {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.perfil-cuenta ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.perfil-cuenta li {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.perfil-cuenta li:last-child {
+  border-bottom: none;
+}
+
+.perfil-cuenta span {
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.perfil-cuenta strong {
+  color: var(--color-text);
+  font-size: 0.875rem;
+}
+
+.perfil-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.perfil-form .input-group label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--color-text-muted);
+  font-weight: 500;
+  font-size: 0.8125rem;
+}
+
+.perfil-form .input-group input,
+.perfil-form .input-group textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  outline: none;
+  font-size: 0.9rem;
+  font-family: inherit;
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.perfil-form .input-group input:focus,
+.perfil-form .input-group textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+}
+
+.perfil-form button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius-md);
+  background: var(--color-accent);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.perfil-form button[type="submit"]:hover {
+  background: var(--color-accent-hover);
+}
+
+.perfil-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  cursor: pointer;
+  color: var(--color-text);
+  font-size: 0.875rem;
+}
+
+.perfil-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-accent);
+}
+
+.mensaje-exito {
+  color: var(--color-success);
+  background: var(--color-success-bg);
+  border: 1px solid var(--color-success);
+  padding: 10px;
+  border-radius: var(--radius-md);
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 0.875rem;
+}
+
+@media (max-width: 600px) {
+  .perfil-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .perfil-hero {
+    flex-direction: column;
+    text-align: center;
+  }
+}

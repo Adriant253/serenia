@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: serenia-api
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /test
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

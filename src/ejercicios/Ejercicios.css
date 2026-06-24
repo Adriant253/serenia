@@ -1,0 +1,469 @@
+.ejercicios-container {
+  width: 100%;
+  max-width: 960px;
+  padding: 0 20px 40px;
+}
+
+.ejercicios-hero {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.ejercicios-titulo {
+  color: var(--color-accent);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.ejercicios-subtitulo {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.seccion-titulo {
+  color: var(--color-accent);
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.seccion-descripcion {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 20px;
+}
+
+/* Progreso */
+
+.progreso-usuario {
+  background: var(--color-surface);
+  border-radius: 20px;
+  padding: 28px 32px;
+  box-shadow: 0 8px 24px var(--color-shadow);
+  margin-bottom: 32px;
+}
+
+.progreso-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.progreso-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 16px 8px;
+  background: var(--color-bg);
+  border-radius: 14px;
+}
+
+.progreso-stat-numero {
+  color: var(--color-accent);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.progreso-stat-label {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  margin-top: 4px;
+}
+
+.progreso-barra-general {
+  height: 8px;
+  background: var(--color-border);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+
+.progreso-barra-relleno {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-secondary));
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+.progreso-historial h3 {
+  color: var(--color-text);
+  font-size: 1rem;
+  margin-bottom: 12px;
+}
+
+.progreso-historial ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.progreso-historial li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--color-bg);
+  border-radius: 12px;
+  gap: 12px;
+}
+
+.historial-titulo {
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.historial-meta {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.progreso-vacio {
+  color: var(--color-text-muted);
+  text-align: center;
+  font-size: 0.95rem;
+  padding: 12px 0;
+}
+
+/* Catálogo */
+
+.catalogo {
+  margin-bottom: 32px;
+}
+
+.catalogo-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.filtro-btn {
+  width: auto !important;
+  padding: 10px 18px !important;
+  font-size: 0.85rem !important;
+  background: var(--color-surface) !important;
+  color: var(--color-accent) !important;
+  border: 2px solid var(--color-border) !important;
+  border-radius: 99px !important;
+}
+
+.filtro-btn.activo {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-secondary)) !important;
+  color: white !important;
+  border-color: transparent !important;
+}
+
+.catalogo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.ejercicio-card {
+  background: var(--color-surface);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 24px var(--color-shadow);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.ejercicio-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px var(--color-shadow);
+}
+
+.ejercicio-card-icono {
+  font-size: 2.2rem;
+  flex-shrink: 0;
+}
+
+.ejercicio-card-contenido h3 {
+  color: var(--color-text);
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+
+.ejercicio-card-contenido p {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.ejercicio-categoria {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-secondary);
+  background: var(--color-info-bg);
+  padding: 3px 10px;
+  border-radius: 99px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.ejercicio-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.ejercicio-completado-badge {
+  color: var(--color-accent) !important;
+  font-weight: 600;
+}
+
+/* Guía paso a paso */
+
+.guia {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+.btn-volver {
+  width: auto !important;
+  padding: 10px 16px !important;
+  font-size: 0.9rem !important;
+  background: transparent !important;
+  color: var(--color-accent) !important;
+  box-shadow: none !important;
+  margin-bottom: 24px;
+}
+
+.btn-volver:hover {
+  text-decoration: underline;
+  transform: none !important;
+}
+
+.guia-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.guia-icono {
+  font-size: 2.5rem;
+}
+
+.guia-header h2 {
+  color: var(--color-text);
+  font-size: 1.4rem;
+}
+
+.guia-progreso-texto {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.guia-barra-progreso {
+  height: 6px;
+  background: var(--color-border);
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 28px;
+}
+
+.guia-barra-relleno {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-secondary));
+  border-radius: 99px;
+  transition: width 0.4s ease;
+}
+
+.guia-contenido {
+  background: var(--color-surface);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 8px 24px var(--color-shadow);
+  margin-bottom: 24px;
+}
+
+.guia-paso h3 {
+  color: var(--color-accent);
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+.guia-paso p {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 28px;
+}
+
+.guia-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.guia-acciones button {
+  width: auto !important;
+  min-width: 140px;
+  padding: 12px 24px !important;
+}
+
+.btn-secundario {
+  background: var(--color-surface) !important;
+  color: var(--color-accent) !important;
+  border: 2px solid var(--color-border) !important;
+}
+
+.btn-secundario:hover {
+  border-color: var(--color-accent) !important;
+}
+
+.btn-secundario:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.guia-duracion-paso {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-top: 16px;
+}
+
+.guia-finalizado {
+  text-align: center;
+  max-width: 480px;
+  margin: 60px auto;
+  padding: 40px 32px;
+  background: var(--color-surface);
+  border-radius: 24px;
+  box-shadow: 0 8px 24px var(--color-shadow);
+}
+
+.guia-finalizado-icono {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.guia-finalizado h2 {
+  color: var(--color-accent);
+  margin-bottom: 12px;
+}
+
+.guia-finalizado p {
+  color: var(--color-text-muted);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+/* Temporizador */
+
+.temporizador {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.temporizador-circulo {
+  position: relative;
+  width: 140px;
+  height: 140px;
+}
+
+.temporizador-svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.temporizador-fondo {
+  fill: none;
+  stroke: var(--color-border);
+  stroke-width: 8;
+}
+
+.temporizador-progreso {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 8;
+  stroke-linecap: round;
+  stroke-dasharray: 326.73;
+  transition: stroke-dashoffset 0.3s linear;
+}
+
+.temporizador-tiempo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.temporizador-estado {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  .progreso-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .progreso-historial li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .catalogo-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .guia-contenido {
+    padding: 24px 20px;
+  }
+
+  .guia-acciones {
+    flex-direction: column;
+  }
+
+  .guia-acciones button {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .ejercicios-titulo {
+    font-size: 1.6rem;
+  }
+
+  .ejercicio-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .ejercicio-card-meta {
+    justify-content: center;
+  }
+}

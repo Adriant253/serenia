@@ -1,0 +1,131 @@
+/* ── Mejoras visuales globales del dashboard ── */
+
+.dashboard-layout {
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 100% 0%,
+      var(--color-accent-soft) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 60% 50% at 0% 100%,
+      var(--color-secondary-soft) 0%,
+      transparent 50%
+    ),
+    var(--color-bg);
+}
+
+.dashboard-main {
+  animation: fadeInMain 0.4s ease;
+}
+
+@keyframes fadeInMain {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dashboard-main > * {
+  width: 100%;
+}
+
+/* Tarjetas compartidas */
+.inicio-stat,
+.inicio-card,
+.historial-ejercicios,
+.plan-diario,
+.ejercicio-card,
+.ejercicio-detalle-card,
+.estado-animo-card,
+.perfil-cuenta,
+.perfil-form,
+.perfil-temas,
+.chat-embedded {
+  border: 1px solid var(--color-border) !important;
+  box-shadow: 0 4px 20px var(--color-shadow) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.inicio-stat:hover,
+.ejercicio-card:hover,
+.landing-info-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px var(--color-shadow) !important;
+}
+
+.inicio-stat-icono {
+  background: var(--color-accent-soft) !important;
+}
+
+.inicio-hero {
+  box-shadow: 0 16px 40px var(--color-shadow) !important;
+}
+
+/* Botones primarios en la app */
+.inicio-btn,
+.ejercicio-btn-iniciar,
+.ejercicio-btn-completar,
+.tab-btn.activo {
+  background: linear-gradient(
+    135deg,
+    var(--color-accent),
+    var(--color-secondary)
+  ) !important;
+  border: none !important;
+  color: white !important;
+}
+
+.tab-btn {
+  border-color: var(--color-border) !important;
+  color: var(--color-accent) !important;
+}
+
+.tab-btn.activo {
+  box-shadow: 0 4px 16px var(--color-shadow) !important;
+}
+
+/* Inputs en dashboard */
+.inicio-card input,
+.inicio-card textarea,
+.inicio-card select,
+.perfil-form input,
+.perfil-form textarea,
+.estado-animo-card input,
+.estado-animo-card textarea,
+.estado-animo-card select {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.inicio-card input:focus,
+.perfil-form input:focus,
+.perfil-form textarea:focus,
+.estado-animo-card input:focus,
+.estado-animo-card textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
+  outline: none;
+}
+
+/* Títulos de sección */
+.inicio-seccion-titulo,
+.ejercicios-titulo,
+.seccion-titulo,
+.historial-hero h1,
+.estado-animo-hero h1 {
+  letter-spacing: -0.02em;
+}
+
+/* Scrollbar suave */
+.dashboard-main::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dashboard-main::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 99px;
+}
+
+.dashboard-main::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}
