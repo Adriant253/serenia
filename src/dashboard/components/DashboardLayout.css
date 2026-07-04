@@ -1,0 +1,11 @@
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+  background: #111827; /* fondo oscuro */
+  color: #f9fafb;
+}

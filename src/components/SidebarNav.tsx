@@ -172,12 +172,10 @@ function SidebarNav({
         <NavLink
           to="/dashboard/perfil"
           className={({ isActive }) =>
-            isActive
-              ? 'sidebar-link activo'
-              : 'sidebar-link'
-          }
-        >
-
+            isActive ? 'sidebar-link activo' : 'sidebar-link'
+        }
+      >
+ 
           <svg
             className="sidebar-icon"
             viewBox="0 0 24 24"
@@ -186,15 +184,36 @@ function SidebarNav({
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            aria-hidden="true"
           >
             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-            <circle cx="12" cy="7" r="4" />
+              <circle cx="12" cy="7" r="4" />
           </svg>
 
           <span>Perfil</span>
+        </NavLink> 
 
+        <NavLink
+          to="/dashboard/sonidos-relajantes"
+          className={({ isActive }) =>
+          isActive ? 'sidebar-link activo' : 'sidebar-link'
+        }
+      >
+  
+          <svg
+            className="sidebar-icon"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+  >
+            <path d="M9 18V5l12-2v13" />
+              <circle cx="6" cy="18" r="3" />
+              <circle cx="18" cy="16" r="3" />
+          </svg>
+
+          <span>Sonidos relajantes</span>
         </NavLink>
+
 
         <button
           type="button"
@@ -217,6 +236,8 @@ function SidebarNav({
             <line x1="21" y1="12" x2="9" y2="12" />
           </svg>
 
+          
+
           <span>Cerrar sesión</span>
 
         </button>
@@ -229,4 +250,6 @@ function SidebarNav({
 
 }
 
-export default SidebarNav
+export default SidebarNav;
+
+
