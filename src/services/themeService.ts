@@ -52,7 +52,7 @@ export function obtenerTema(): TemaApp {
     /* ignorar */
   }
 
-  return 'serenia'
+  return 'dark'
 }
 
 export function guardarTema(tema: TemaApp): void {

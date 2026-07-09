@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import {
@@ -7,26 +7,32 @@ import {
 } from '../services/emocionesService'
 
 import {
-  obtenerProgreso
+  obtenerProgreso,
+  type ProgresoEjercicios
 } from '../services/progresoService'
+
+import {
+  obtenerUsuarioSesion
+} from '../utils/sesionUsuario'
 
 import HistorialEmociones from '../estadoAnimo/components/HistorialEmociones'
 
 import './Historial.css'
 
 function obtenerUsuario() {
-  try {
-    return JSON.parse(
-      localStorage.getItem('usuario') || 'null'
-    )
-  } catch {
-    return null
-  }
+  return obtenerUsuarioSesion()
 }
 
 function HistorialPage() {
 
   const usuario = obtenerUsuario()
+
+  const [progreso, setProgreso] =
+    useState<ProgresoEjercicios>({
+      completados: {},
+      totalCompletados: 0,
+      historial: []
+    })
 
   const [fechaDesde, setFechaDesde] =
     useState('')
@@ -58,7 +64,14 @@ function HistorialPage() {
     ]
   )
 
-  const progreso = obtenerProgreso()
+  useEffect(() => {
+    if (!usuario?.id_usuario) {
+      return
+    }
+
+    obtenerProgreso(usuario.id_usuario)
+      .then(setProgreso)
+  }, [usuario?.id_usuario])
 
   if (!usuario) {
     return (

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import PanelPlanDiario from './components/PanelPlanDiario'
@@ -6,8 +7,13 @@ import {
   generarPlanDiario
 } from '../logic/recomendacionesEstres'
 import {
-  obtenerProgreso
+  obtenerProgreso,
+  type ProgresoEjercicios
 } from '../services/progresoService'
+
+import {
+  obtenerUsuarioSesion
+} from '../utils/sesionUsuario'
 
 import {
   obtenerNombreMostrar,
@@ -15,14 +21,6 @@ import {
 } from '../services/perfilService'
 
 import './Inicio.css'
-
-interface Usuario {
-  id_usuario: number
-  nombre: string
-  email: string
-  fecha_nacimiento: string
-  fecha_registro: string
-}
 
 function obtenerSaludo(): string {
   const hora = new Date().getHours()
@@ -40,22 +38,29 @@ function obtenerSaludo(): string {
 
 function Datos() {
 
-  const usuario: Usuario | null = (() => {
-    try {
-      return JSON.parse(
-        localStorage.getItem('usuario') || 'null'
-      )
-    } catch {
-      return null
-    }
-  })()
+  const usuario = obtenerUsuarioSesion()
 
-  const progreso = obtenerProgreso()
+  const [progreso, setProgreso] =
+    useState<ProgresoEjercicios>({
+      completados: {},
+      totalCompletados: 0,
+      historial: []
+    })
+
+  useEffect(() => {
+    if (!usuario?.id_usuario) {
+      return
+    }
+
+    obtenerProgreso(usuario.id_usuario)
+      .then(setProgreso)
+  }, [usuario?.id_usuario])
 
   const plan = usuario
     ? generarPlanDiario(
         usuario.id_usuario,
-        usuario.nombre
+        usuario.nombre,
+        progreso.totalCompletados
       )
     : null
 

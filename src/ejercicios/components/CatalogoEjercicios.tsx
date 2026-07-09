@@ -5,11 +5,13 @@ import {
 } from '../../data/ejerciciosData'
 
 import {
-  obtenerVecesCompletado
+  obtenerVecesCompletado,
+  type ProgresoEjercicios
 } from '../../services/progresoService'
 
 interface CatalogoEjerciciosProps {
   ejercicios: Ejercicio[]
+  progreso: ProgresoEjercicios
   categoriaActiva: CategoriaEjercicio | 'todos'
   onCategoriaChange: (
     categoria: CategoriaEjercicio | 'todos'
@@ -21,6 +23,7 @@ interface CatalogoEjerciciosProps {
 
 function CatalogoEjercicios({
   ejercicios,
+  progreso,
   categoriaActiva,
   onCategoriaChange,
   onSeleccionar
@@ -86,6 +89,7 @@ function CatalogoEjercicios({
 
           const veces =
             obtenerVecesCompletado(
+              progreso,
               ejercicio.id
             )
 

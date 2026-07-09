@@ -5,6 +5,7 @@ import 'dotenv/config'
 import { enviarCorreo, correoConfigurado } from './mail.js'
 import pool from './db.js'
 import { asegurarRecuperacionContrasena } from './setupRecuperacion.js'
+import { asegurarProgresoEjercicios } from './setupProgresoEjercicios.js'
 import {
     verificarTokenGoogle,
     loginORegistrarGoogle
@@ -67,6 +68,7 @@ imprimirEstadoEntorno()
 
 try {
     await asegurarRecuperacionContrasena(pool)
+    await asegurarProgresoEjercicios(pool)
 } catch (error) {
     console.warn(
         'Advertencia: no se pudo verificar la base de datos al iniciar:',
@@ -594,6 +596,204 @@ app.post(
     }
 )
 
+
+
+/*
+|--------------------------------------------------------------------------
+| PROGRESO DE EJERCICIOS
+|--------------------------------------------------------------------------
+*/
+
+function construirProgresoDesdeFilas(filas) {
+    const completados = {}
+    const historial = []
+
+    for (const fila of filas) {
+        const ejercicioId = fila.ejercicio_id
+        const fechaIso = new Date(fila.fecha).toISOString()
+
+        historial.push({
+            ejercicioId,
+            titulo: fila.titulo,
+            fecha: fechaIso,
+            duracionSegundos: fila.duracion_segundos
+        })
+
+        if (!completados[ejercicioId]) {
+            completados[ejercicioId] = {
+                veces: 0,
+                ultimaFecha: fechaIso
+            }
+        }
+
+        completados[ejercicioId].veces += 1
+
+        if (
+            new Date(fechaIso).getTime() >
+            new Date(
+                completados[ejercicioId].ultimaFecha
+            ).getTime()
+        ) {
+            completados[ejercicioId].ultimaFecha =
+                fechaIso
+        }
+    }
+
+    return {
+        completados,
+        totalCompletados: filas.length,
+        historial
+    }
+}
+
+app.get(
+    '/api/progreso-ejercicios/:idUsuario',
+    async (req, res) => {
+
+        try {
+
+            const idUsuario =
+                Number(req.params.idUsuario)
+
+            if (!idUsuario) {
+                return res.status(400).json({
+                    success: 0,
+                    mensaje: 'Usuario no válido'
+                })
+            }
+
+            const [filas] = await pool.query(
+                `SELECT
+                    ejercicio_id,
+                    titulo,
+                    duracion_segundos,
+                    fecha
+                 FROM historial_ejercicios
+                 WHERE id_usuario = ?
+                 ORDER BY fecha DESC
+                 LIMIT 20`,
+                [idUsuario]
+            )
+
+            res.json({
+                success: 1,
+                ...construirProgresoDesdeFilas(filas)
+            })
+
+        } catch (error) {
+
+            console.error(error)
+
+            if (esErrorConexionDb(error)) {
+                return res.status(503).json({
+                    success: 0,
+                    mensaje: mensajeErrorBd(error)
+                })
+            }
+
+            res.status(500).json({
+                success: 0,
+                mensaje: 'Error al obtener el progreso'
+            })
+
+        }
+
+    }
+)
+
+app.post(
+    '/api/progreso-ejercicios',
+    async (req, res) => {
+
+        try {
+
+            const {
+                id_usuario,
+                ejercicioId,
+                titulo,
+                duracionSegundos
+            } = req.body
+
+            const idUsuario = Number(id_usuario)
+
+            if (!idUsuario) {
+                return res.status(400).json({
+                    success: 0,
+                    mensaje: 'Usuario no válido'
+                })
+            }
+
+            if (!ejercicioId?.trim()) {
+                return res.status(400).json({
+                    success: 0,
+                    mensaje: 'Ejercicio no válido'
+                })
+            }
+
+            if (!titulo?.trim()) {
+                return res.status(400).json({
+                    success: 0,
+                    mensaje: 'Título no válido'
+                })
+            }
+
+            const duracion =
+                Number(duracionSegundos) || 0
+
+            await pool.query(
+                `INSERT INTO historial_ejercicios (
+                    id_usuario,
+                    ejercicio_id,
+                    titulo,
+                    duracion_segundos
+                ) VALUES (?, ?, ?, ?)`,
+                [
+                    idUsuario,
+                    ejercicioId.trim(),
+                    titulo.trim(),
+                    duracion
+                ]
+            )
+
+            const [filas] = await pool.query(
+                `SELECT
+                    ejercicio_id,
+                    titulo,
+                    duracion_segundos,
+                    fecha
+                 FROM historial_ejercicios
+                 WHERE id_usuario = ?
+                 ORDER BY fecha DESC
+                 LIMIT 20`,
+                [idUsuario]
+            )
+
+            res.json({
+                success: 1,
+                mensaje: 'Progreso guardado',
+                ...construirProgresoDesdeFilas(filas)
+            })
+
+        } catch (error) {
+
+            console.error(error)
+
+            if (esErrorConexionDb(error)) {
+                return res.status(503).json({
+                    success: 0,
+                    mensaje: mensajeErrorBd(error)
+                })
+            }
+
+            res.status(500).json({
+                success: 0,
+                mensaje: 'Error al guardar el progreso'
+            })
+
+        }
+
+    }
+)
 
 
 app.listen(puerto, () => {

@@ -1,7 +1,9 @@
 .ejercicios-container {
   width: 100%;
   max-width: 960px;
+  margin: 0 auto;
   padding: 0 20px 40px;
+  box-sizing: border-box;
 }
 
 .ejercicios-hero {
@@ -428,6 +430,16 @@
 @media (max-width: 768px) {
   .progreso-stats {
     grid-template-columns: 1fr;
+  }
+
+  .catalogo-filtros {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filtro-btn {
+    flex: 1 1 auto;
+    min-width: fit-content;
   }
 
   .progreso-historial li {

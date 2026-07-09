@@ -11,10 +11,6 @@ import {
   type RegistroEmocion
 } from '../services/emocionesService'
 
-import {
-  obtenerProgreso
-} from '../services/progresoService'
-
 export type NivelEstresGeneral =
   | 'bajo'
   | 'moderado'
@@ -329,7 +325,8 @@ function generarMensajePrincipal(
 
 export function generarPlanDiario(
   idUsuario: number,
-  nombreUsuario: string
+  nombreUsuario: string,
+  progresoEjercicios = 0
 ): PlanDiarioEstrés {
   const historial =
     obtenerHistorialEmocional(idUsuario)
@@ -365,8 +362,7 @@ export function generarPlanDiario(
   const necesitaCheckIn =
     !yaRegistroHoy(historial)
 
-  const progreso =
-    obtenerProgreso().totalCompletados
+  const progreso = progresoEjercicios
 
   const acciones = generarAcciones(
     {

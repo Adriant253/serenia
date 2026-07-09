@@ -1,5 +1,9 @@
 import { useState } from 'react'
 import { login } from '../../services/authService'
+import { aplicarTema } from '../../services/themeService'
+import {
+  guardarUsuarioSesion
+} from '../../utils/sesionUsuario'
 import {
   validarContrasena,
   validarEmail
@@ -82,10 +86,8 @@ export function loginFunctions() {
           ...usuario
         } = data
 
-        localStorage.setItem(
-          'usuario',
-          JSON.stringify(usuario)
-        )
+        guardarUsuarioSesion(usuario)
+        aplicarTema('dark')
 
         window.location.href =
           '/dashboard/inicio'

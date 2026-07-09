@@ -1,6 +1,6 @@
 .sidebar {
   width: 248px;
-  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--color-surface);
   border-right: 1px solid var(--color-border);
   box-shadow: 2px 0 20px var(--color-shadow);
@@ -95,15 +95,35 @@
 
 @media (max-width: 768px) {
   .sidebar {
-    width: 72px;
-    padding: 16px 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    width: 100%;
+    min-height: auto;
+    height: auto;
+    flex-direction: row;
     align-items: center;
+    padding:
+      8px 8px
+      max(8px, env(safe-area-inset-bottom, 0px));
+    border-right: none;
+    border-top: 1px solid var(--color-border);
+    box-shadow: 0 -4px 20px var(--color-shadow);
   }
 
   .sidebar-brand {
-    flex-direction: column;
+    display: none;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
     gap: 0;
-    padding-bottom: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .sidebar-title,
@@ -113,10 +133,12 @@
 
   .sidebar-link {
     justify-content: center;
-    padding: 14px;
+    padding: 12px;
+    min-width: 44px;
+    min-height: 44px;
   }
 
-  .sidebar-link-logout span {
+  .sidebar-link-logout {
     display: none;
   }
 

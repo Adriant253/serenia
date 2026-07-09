@@ -1,7 +1,5 @@
 import type { RegistroEmocion } from './emocionesService'
-import type { ProgresoEjercicios } from './progresoService'
 import { EMOCIONES } from '../data/emocionesData'
-import { EJERCICIOS } from '../data/ejerciciosData'
 import {
   CAUSAS_ESTRES_LABORAL,
   MOMENTOS_LABORALES
@@ -18,13 +16,6 @@ interface EntradaEmocion {
   nivelEstres: number
   causaId: string
   momentoId: string
-}
-
-interface EntradaEjercicio {
-  diasAtras: number
-  hora: number
-  ejercicioId: string
-  duracionSegundos: number
 }
 
 const EMOCIONES_DEMO: EntradaEmocion[] = [
@@ -120,39 +111,6 @@ const EMOCIONES_DEMO: EntradaEmocion[] = [
   }
 ]
 
-const EJERCICIOS_DEMO: EntradaEjercicio[] = [
-  {
-    diasAtras: 0,
-    hora: 8,
-    ejercicioId: 'respiracion-478',
-    duracionSegundos: 180
-  },
-  {
-    diasAtras: 2,
-    hora: 19,
-    ejercicioId: 'grounding-54321',
-    duracionSegundos: 240
-  },
-  {
-    diasAtras: 4,
-    hora: 12,
-    ejercicioId: 'pausa-consciente',
-    duracionSegundos: 120
-  },
-  {
-    diasAtras: 6,
-    hora: 18,
-    ejercicioId: 'respiracion-diafragmatica',
-    duracionSegundos: 200
-  },
-  {
-    diasAtras: 9,
-    hora: 7,
-    ejercicioId: 'escaneo-corporal',
-    duracionSegundos: 420
-  }
-]
-
 function fechaRelativa(
   diasAtras: number,
   hora: number
@@ -206,51 +164,6 @@ function construirEmociones(
   )
 }
 
-function construirProgreso(): ProgresoEjercicios {
-  const completados: ProgresoEjercicios['completados'] = {}
-  const historial: ProgresoEjercicios['historial'] = []
-
-  for (const entrada of EJERCICIOS_DEMO) {
-    const ejercicio = EJERCICIOS.find(
-      e => e.id === entrada.ejercicioId
-    )!
-
-    const fecha = fechaRelativa(
-      entrada.diasAtras,
-      entrada.hora
-    )
-
-    historial.push({
-      ejercicioId: ejercicio.id,
-      titulo: ejercicio.titulo,
-      fecha,
-      duracionSegundos: entrada.duracionSegundos
-    })
-
-    const prev = completados[ejercicio.id]
-    completados[ejercicio.id] = {
-      veces: (prev?.veces ?? 0) + 1,
-      ultimaFecha: prev
-        ? (fecha > prev.ultimaFecha
-            ? fecha
-            : prev.ultimaFecha)
-        : fecha
-    }
-  }
-
-  historial.sort(
-    (a, b) =>
-      new Date(b.fecha).getTime() -
-      new Date(a.fecha).getTime()
-  )
-
-  return {
-    completados,
-    totalCompletados: historial.length,
-    historial
-  }
-}
-
 export function sembrarDatosDemo(
   idUsuario: number,
   forzar = false
@@ -268,11 +181,6 @@ export function sembrarDatosDemo(
   localStorage.setItem(
     claveHistorial(idUsuario),
     JSON.stringify(construirEmociones(idUsuario))
-  )
-
-  localStorage.setItem(
-    'progresoEjercicios',
-    JSON.stringify(construirProgreso())
   )
 
   localStorage.setItem(clave, DEMO_VERSION)

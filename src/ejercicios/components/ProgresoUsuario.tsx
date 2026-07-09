@@ -9,10 +9,12 @@ import {
 
 interface ProgresoUsuarioProps {
   progreso: ProgresoEjercicios
+  cargando?: boolean
 }
 
 function ProgresoUsuario({
-  progreso
+  progreso,
+  cargando = false
 }: ProgresoUsuarioProps) {
 
   const ejerciciosUnicos =
@@ -33,6 +35,13 @@ function ProgresoUsuario({
       <h2 className="seccion-titulo">
         Tu progreso
       </h2>
+
+      {cargando ? (
+        <p className="progreso-vacio">
+          Cargando tu progreso...
+        </p>
+      ) : (
+        <>
 
       <div className="progreso-stats">
 
@@ -135,6 +144,9 @@ function ProgresoUsuario({
           Elige uno del catálogo para empezar.
         </p>
 
+      )}
+
+        </>
       )}
 
     </div>

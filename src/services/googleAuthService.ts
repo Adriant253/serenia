@@ -3,6 +3,10 @@ import {
   mensajeErrorRed
 } from '../config/api'
 import { parseJsonResponse } from '../config/parseJsonResponse'
+import { aplicarTema } from './themeService'
+import {
+  guardarUsuarioSesion
+} from '../utils/sesionUsuario'
 
 export async function loginGoogle(
   credential: string
@@ -40,9 +44,7 @@ export function guardarSesion(
   data: Record<string, unknown>
 ) {
   const { success: _s, mensaje: _m, ...usuario } = data
-  localStorage.setItem(
-    'usuario',
-    JSON.stringify(usuario)
-  )
+  guardarUsuarioSesion(usuario)
+  aplicarTema('dark')
   window.location.href = '/dashboard/inicio'
 }

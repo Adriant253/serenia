@@ -47,22 +47,26 @@ function GuiaPasoAPaso({
     ejercicio.pasos.length - 1
 
   const handleTimerCompletado =
-    useCallback(() => {
+    useCallback(async () => {
       setTemporizadorActivo(false)
 
       if (esUltimoPaso) {
         const duracion =
           calcularDuracionTotal(ejercicio)
 
-        const progreso =
-          registrarEjercicioCompletado(
-            ejercicio.id,
-            ejercicio.titulo,
-            duracion
-          )
+        try {
+          const progreso =
+            await registrarEjercicioCompletado(
+              ejercicio.id,
+              ejercicio.titulo,
+              duracion
+            )
 
-        onProgresoActualizado(progreso)
-        setFinalizado(true)
+          onProgresoActualizado(progreso)
+          setFinalizado(true)
+        } catch (error) {
+          console.error(error)
+        }
       } else {
         setPasoActual((prev) => prev + 1)
         setReiniciarTimer((prev) => !prev)

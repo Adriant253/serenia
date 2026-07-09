@@ -1,3 +1,10 @@
+import {
+  API_BASE,
+  mensajeErrorRed
+} from '../config/api'
+import { parseJsonResponse } from '../config/parseJsonResponse'
+import { obtenerUsuarioSesion } from '../utils/sesionUsuario'
+
 export interface RegistroEjercicio {
   veces: number
   ultimaFecha: string
@@ -14,8 +21,6 @@ export interface ProgresoEjercicios {
   }[]
 }
 
-const CLAVE_PROGRESO = 'progresoEjercicios'
-
 function progresoVacio(): ProgresoEjercicios {
   return {
     completados: {},
@@ -24,75 +29,112 @@ function progresoVacio(): ProgresoEjercicios {
   }
 }
 
-export function obtenerProgreso(): ProgresoEjercicios {
-  try {
-    const datos =
-      localStorage.getItem(CLAVE_PROGRESO)
+export function obtenerVecesCompletado(
+  progreso: ProgresoEjercicios,
+  ejercicioId: string
+): number {
+  return progreso.completados[ejercicioId]?.veces ?? 0
+}
 
-    if (!datos) {
+export async function obtenerProgreso(
+  idUsuario?: number
+): Promise<ProgresoEjercicios> {
+  const usuarioId =
+    idUsuario ?? obtenerUsuarioSesion()?.id_usuario
+
+  if (!usuarioId) {
+    return progresoVacio()
+  }
+
+  try {
+    const response = await fetch(
+      `${API_BASE}/api/progreso-ejercicios/${usuarioId}`
+    )
+
+    const data = await parseJsonResponse(response)
+
+    if (data.success !== 1) {
       return progresoVacio()
     }
 
-    return JSON.parse(datos) as ProgresoEjercicios
-  } catch {
+    return {
+      completados:
+        (data.completados as Record<string, RegistroEjercicio>) ??
+        {},
+      totalCompletados:
+        Number(data.totalCompletados) || 0,
+      historial:
+        (data.historial as ProgresoEjercicios['historial']) ??
+        []
+    }
+  } catch (error) {
+    console.error('Error al obtener progreso:', error)
     return progresoVacio()
   }
 }
 
-export function registrarEjercicioCompletado(
+export async function registrarEjercicioCompletado(
   ejercicioId: string,
   titulo: string,
-  duracionSegundos: number
-): ProgresoEjercicios {
-  const progreso = obtenerProgreso()
-  const ahora = new Date().toISOString()
+  duracionSegundos: number,
+  idUsuario?: number
+): Promise<ProgresoEjercicios> {
+  const usuarioId =
+    idUsuario ?? obtenerUsuarioSesion()?.id_usuario
 
-  const registroActual =
-    progreso.completados[ejercicioId]
-
-  progreso.completados[ejercicioId] = {
-    veces: (registroActual?.veces ?? 0) + 1,
-    ultimaFecha: ahora
+  if (!usuarioId) {
+    throw new Error(
+      'Debes iniciar sesión para guardar tu progreso'
+    )
   }
 
-  progreso.totalCompletados += 1
+  try {
+    const response = await fetch(
+      `${API_BASE}/api/progreso-ejercicios`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id_usuario: usuarioId,
+          ejercicioId,
+          titulo,
+          duracionSegundos
+        })
+      }
+    )
 
-  progreso.historial.unshift({
-    ejercicioId,
-    titulo,
-    fecha: ahora,
-    duracionSegundos
-  })
+    const data = await parseJsonResponse(response, true)
 
-  if (progreso.historial.length > 20) {
-    progreso.historial =
-      progreso.historial.slice(0, 20)
+    if (data.success !== 1) {
+      throw new Error(
+        String(
+          data.mensaje ||
+          'No se pudo guardar el progreso'
+        )
+      )
+    }
+
+    return {
+      completados:
+        (data.completados as Record<string, RegistroEjercicio>) ??
+        {},
+      totalCompletados:
+        Number(data.totalCompletados) || 0,
+      historial:
+        (data.historial as ProgresoEjercicios['historial']) ??
+        []
+    }
+  } catch (error) {
+    throw new Error(mensajeErrorRed(error))
   }
-
-  localStorage.setItem(
-    CLAVE_PROGRESO,
-    JSON.stringify(progreso)
-  )
-
-  return progreso
-}
-
-export function obtenerVecesCompletado(
-  ejercicioId: string
-): number {
-  return (
-    obtenerProgreso().completados[
-      ejercicioId
-    ]?.veces ?? 0
-  )
 }
 
 export function formatearDuracion(
   segundos: number
 ): string {
-  const minutos = Math.floor(
-    segundos / 60
-  )
+  const minutos = Math.floor(segundos / 60)
   const resto = segundos % 60
 
   if (minutos === 0) {

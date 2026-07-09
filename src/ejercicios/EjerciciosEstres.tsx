@@ -34,9 +34,34 @@ function EjerciciosEstres() {
     useState<CategoriaEjercicio | 'todos'>('todos')
 
   const [progreso, setProgreso] =
-    useState<ProgresoEjercicios>(
-      obtenerProgreso
-    )
+    useState<ProgresoEjercicios>({
+      completados: {},
+      totalCompletados: 0,
+      historial: []
+    })
+
+  const [cargandoProgreso, setCargandoProgreso] =
+    useState(true)
+
+  useEffect(() => {
+    let activo = true
+
+    obtenerProgreso()
+      .then((datos) => {
+        if (activo) {
+          setProgreso(datos)
+        }
+      })
+      .finally(() => {
+        if (activo) {
+          setCargandoProgreso(false)
+        }
+      })
+
+    return () => {
+      activo = false
+    }
+  }, [])
 
   useEffect(() => {
     if (!ejercicioParam) {
@@ -106,10 +131,12 @@ function EjerciciosEstres() {
 
       <ProgresoUsuario
         progreso={progreso}
+        cargando={cargandoProgreso}
       />
 
       <CatalogoEjercicios
         ejercicios={ejerciciosFiltrados}
+        progreso={progreso}
         categoriaActiva={categoriaActiva}
         onCategoriaChange={
           setCategoriaActiva
