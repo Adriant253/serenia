@@ -24,9 +24,6 @@ import Perfil from '../perfil/Perfil'
 
 import ChatPage from '../chat/ChatPage'
 
-import sonidosRelajantes from '../sonidosRelajantes/sonidosRelajantes';
-
-
 import './Dashboard.css'
 import '../styles/app-ui.css'
 import SonidosRelajantes from '../sonidosRelajantes/sonidosRelajantes'
