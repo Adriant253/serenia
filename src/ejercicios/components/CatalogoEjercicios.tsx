@@ -1,5 +1,4 @@
 import {
-  CATEGORIAS,
   type CategoriaEjercicio,
   type Ejercicio
 } from '../../data/ejerciciosData'
@@ -12,6 +11,10 @@ import {
 interface CatalogoEjerciciosProps {
   ejercicios: Ejercicio[]
   progreso: ProgresoEjercicios
+  categorias: Record<
+    CategoriaEjercicio,
+    { etiqueta: string; descripcion: string }
+  >
   categoriaActiva: CategoriaEjercicio | 'todos'
   onCategoriaChange: (
     categoria: CategoriaEjercicio | 'todos'
@@ -24,6 +27,7 @@ interface CatalogoEjerciciosProps {
 function CatalogoEjercicios({
   ejercicios,
   progreso,
+  categorias,
   categoriaActiva,
   onCategoriaChange,
   onSeleccionar
@@ -36,11 +40,11 @@ function CatalogoEjercicios({
     { id: 'todos', etiqueta: 'Todos' },
     {
       id: 'manejo_crisis',
-      etiqueta: CATEGORIAS.manejo_crisis.etiqueta
+      etiqueta: categorias.manejo_crisis.etiqueta
     },
     {
       id: 'relajacion_muscular',
-      etiqueta: CATEGORIAS.relajacion_muscular.etiqueta
+      etiqueta: categorias.relajacion_muscular.etiqueta
     }
   ]
 
@@ -121,7 +125,7 @@ function CatalogoEjercicios({
 
                 <span className="ejercicio-categoria">
                   {
-                    CATEGORIAS[
+                    categorias[
                       ejercicio.categoria
                     ].etiqueta
                   }

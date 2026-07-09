@@ -3,7 +3,7 @@ import {
 } from '../data/estresLaboralData'
 
 import {
-  obtenerEjercicioPorId
+  obtenerEjercicioPorId as obtenerEjercicioLocal
 } from '../data/ejerciciosData'
 
 import {
@@ -211,8 +211,8 @@ export function recomendarEjercicio(
   }
 
   const ejercicio =
-    obtenerEjercicioPorId(ejercicioId) ??
-    obtenerEjercicioPorId(
+    obtenerEjercicioLocal(ejercicioId) ??
+    obtenerEjercicioLocal(
       'respiracion-478'
     )!
 

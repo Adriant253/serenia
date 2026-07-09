@@ -3,7 +3,7 @@ import { useCallback, useState } from 'react'
 import {
   calcularDuracionTotal,
   type Ejercicio
-} from '../../data/ejerciciosData'
+} from '../../services/ejerciciosService'
 
 import {
   formatearDuracion,

@@ -8,7 +8,7 @@
     "dev:frontend": "vite",
     "api": "node api/server.js",
     "db:setup-recuperacion": "node api/setup-recuperacion.mjs",
-    "db:seed-usuarios": "node api/seed-usuarios.mjs",
+    "db:seed-ejercicios": "node api/seed-ejercicios.mjs",
     "db:fix-manual-user": "node api/fix-manual-user.mjs",
     "build": "tsc -b && vite build",
     "start": "node api/server.js",

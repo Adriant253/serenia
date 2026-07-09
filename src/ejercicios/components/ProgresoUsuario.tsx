@@ -1,8 +1,4 @@
 import {
-  EJERCICIOS
-} from '../../data/ejerciciosData'
-
-import {
   formatearDuracion,
   type ProgresoEjercicios
 } from '../../services/progresoService'
@@ -10,21 +6,23 @@ import {
 interface ProgresoUsuarioProps {
   progreso: ProgresoEjercicios
   cargando?: boolean
+  totalEjercicios: number
 }
 
 function ProgresoUsuario({
   progreso,
-  cargando = false
+  cargando = false,
+  totalEjercicios
 }: ProgresoUsuarioProps) {
 
   const ejerciciosUnicos =
     Object.keys(progreso.completados).length
 
   const porcentajeCatalogo =
-    EJERCICIOS.length > 0
+    totalEjercicios > 0
       ? Math.round(
           (ejerciciosUnicos /
-            EJERCICIOS.length) *
+            totalEjercicios) *
             100
         )
       : 0
@@ -61,7 +59,7 @@ function ProgresoUsuario({
 
           <span className="progreso-stat-numero">
             {ejerciciosUnicos}
-            /{EJERCICIOS.length}
+            /{totalEjercicios}
           </span>
 
           <span className="progreso-stat-label">

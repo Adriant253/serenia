@@ -7,6 +7,10 @@ import pool from './db.js'
 import { asegurarRecuperacionContrasena } from './setupRecuperacion.js'
 import { asegurarProgresoEjercicios } from './setupProgresoEjercicios.js'
 import {
+    asegurarEjercicios,
+    filaAEjercicio
+} from './setupEjercicios.js'
+import {
     verificarTokenGoogle,
     loginORegistrarGoogle
 } from './googleAuth.js'
@@ -69,6 +73,7 @@ imprimirEstadoEntorno()
 try {
     await asegurarRecuperacionContrasena(pool)
     await asegurarProgresoEjercicios(pool)
+    await asegurarEjercicios(pool)
 } catch (error) {
     console.warn(
         'Advertencia: no se pudo verificar la base de datos al iniciar:',
@@ -600,6 +605,123 @@ app.post(
 
 /*
 |--------------------------------------------------------------------------
+| CATÁLOGO DE EJERCICIOS
+|--------------------------------------------------------------------------
+*/
+
+app.get('/api/ejercicios', async (req, res) => {
+
+    try {
+
+        const [filas] = await pool.query(
+            `SELECT
+                id_ejercicio,
+                codigo,
+                titulo,
+                tipo,
+                duracion_min,
+                url_recurso,
+                descripcion,
+                icono,
+                pasos_json
+             FROM ejercicios
+             ORDER BY id_ejercicio`
+        )
+
+        res.json({
+            success: 1,
+            ejercicios: filas.map(filaAEjercicio)
+        })
+
+    } catch (error) {
+
+        console.error(error)
+
+        if (esErrorConexionDb(error)) {
+            return res.status(503).json({
+                success: 0,
+                mensaje: mensajeErrorBd(error)
+            })
+        }
+
+        res.status(500).json({
+            success: 0,
+            mensaje: 'Error al obtener ejercicios'
+        })
+
+    }
+
+})
+
+app.get(
+    '/api/ejercicios/:codigo',
+    async (req, res) => {
+
+        try {
+
+            const codigo =
+                req.params.codigo?.trim()
+
+            if (!codigo) {
+                return res.status(400).json({
+                    success: 0,
+                    mensaje: 'Código no válido'
+                })
+            }
+
+            const [filas] = await pool.query(
+                `SELECT
+                    id_ejercicio,
+                    codigo,
+                    titulo,
+                    tipo,
+                    duracion_min,
+                    url_recurso,
+                    descripcion,
+                    icono,
+                    pasos_json
+                 FROM ejercicios
+                 WHERE codigo = ?
+                 LIMIT 1`,
+                [codigo]
+            )
+
+            if (!filas.length) {
+                return res.status(404).json({
+                    success: 0,
+                    mensaje: 'Ejercicio no encontrado'
+                })
+            }
+
+            res.json({
+                success: 1,
+                ejercicio: filaAEjercicio(filas[0])
+            })
+
+        } catch (error) {
+
+            console.error(error)
+
+            if (esErrorConexionDb(error)) {
+                return res.status(503).json({
+                    success: 0,
+                    mensaje: mensajeErrorBd(error)
+                })
+            }
+
+            res.status(500).json({
+                success: 0,
+                mensaje: 'Error al obtener el ejercicio'
+            })
+
+        }
+
+    }
+)
+
+
+/*
+|--------------------------------------------------------------------------
 | PROGRESO DE EJERCICIOS
 |--------------------------------------------------------------------------
 */
@@ -740,6 +862,25 @@ app.post(
             const duracion =
                 Number(duracionSegundos) || 0
 
+            const [ejerciciosDb] = await pool.query(
+                `SELECT codigo, titulo
+                 FROM ejercicios
+                 WHERE codigo = ?
+                 LIMIT 1`,
+                [ejercicioId.trim()]
+            )
+
+            if (!ejerciciosDb.length) {
+                return res.status(404).json({
+                    success: 0,
+                    mensaje:
+                        'El ejercicio no existe en el catálogo. Ejecuta el seed de ejercicios.'
+                })
+            }
+
+            const tituloDb =
+                ejerciciosDb[0].titulo
+
             await pool.query(
                 `INSERT INTO historial_ejercicios (
                     id_usuario,
@@ -750,7 +891,7 @@ app.post(
                 [
                     idUsuario,
                     ejercicioId.trim(),
-                    titulo.trim(),
+                    tituloDb,
                     duracion
                 ]
             )

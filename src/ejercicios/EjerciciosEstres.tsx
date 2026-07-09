@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
+import type { CategoriaEjercicio } from '../data/ejerciciosData'
+
 import {
-  EJERCICIOS,
+  CATEGORIAS,
   obtenerEjercicioPorId,
-  type CategoriaEjercicio,
+  obtenerEjercicios,
   type Ejercicio
-} from '../data/ejerciciosData'
+} from '../services/ejerciciosService'
 
 import {
   obtenerProgreso,
@@ -27,6 +29,12 @@ function EjerciciosEstres() {
   const ejercicioParam =
     searchParams.get('ejercicio')
 
+  const [ejercicios, setEjercicios] =
+    useState<Ejercicio[]>([])
+
+  const [cargandoEjercicios, setCargandoEjercicios] =
+    useState(true)
+
   const [ejercicioActivo, setEjercicioActivo] =
     useState<Ejercicio | null>(null)
 
@@ -45,6 +53,18 @@ function EjerciciosEstres() {
 
   useEffect(() => {
     let activo = true
+
+    obtenerEjercicios()
+      .then((lista) => {
+        if (activo) {
+          setEjercicios(lista)
+        }
+      })
+      .finally(() => {
+        if (activo) {
+          setCargandoEjercicios(false)
+        }
+      })
 
     obtenerProgreso()
       .then((datos) => {
@@ -65,30 +85,37 @@ function EjerciciosEstres() {
 
   useEffect(() => {
     if (!ejercicioParam) {
+      setEjercicioActivo(null)
       return
     }
 
-    const ejercicio =
-      obtenerEjercicioPorId(ejercicioParam)
+    let activo = true
 
-    if (ejercicio) {
-      setEjercicioActivo(ejercicio)
+    obtenerEjercicioPorId(ejercicioParam)
+      .then((ejercicio) => {
+        if (activo && ejercicio) {
+          setEjercicioActivo(ejercicio)
+        }
+      })
+
+    return () => {
+      activo = false
     }
   }, [ejercicioParam])
 
   const ejerciciosFiltrados = useMemo(() => {
 
     if (categoriaActiva === 'todos') {
-      return EJERCICIOS
+      return ejercicios
     }
 
-    return EJERCICIOS.filter(
+    return ejercicios.filter(
       (ejercicio) =>
         ejercicio.categoria ===
         categoriaActiva
     )
 
-  }, [categoriaActiva])
+  }, [categoriaActiva, ejercicios])
 
   const volverCatalogo = () => {
     setEjercicioActivo(null)
@@ -129,25 +156,41 @@ function EjerciciosEstres() {
 
       </div>
 
-      <ProgresoUsuario
-        progreso={progreso}
-        cargando={cargandoProgreso}
-      />
+      {cargandoEjercicios ? (
 
-      <CatalogoEjercicios
-        ejercicios={ejerciciosFiltrados}
-        progreso={progreso}
-        categoriaActiva={categoriaActiva}
-        onCategoriaChange={
-          setCategoriaActiva
-        }
-        onSeleccionar={(ejercicio) => {
-          setEjercicioActivo(ejercicio)
-          setSearchParams({
-            ejercicio: ejercicio.id
-          })
-        }}
-      />
+        <p className="progreso-vacio">
+          Cargando catálogo desde la base de datos...
+        </p>
+
+      ) : (
+
+        <>
+
+          <ProgresoUsuario
+            progreso={progreso}
+            cargando={cargandoProgreso}
+            totalEjercicios={ejercicios.length}
+          />
+
+          <CatalogoEjercicios
+            ejercicios={ejerciciosFiltrados}
+            progreso={progreso}
+            categoriaActiva={categoriaActiva}
+            categorias={CATEGORIAS}
+            onCategoriaChange={
+              setCategoriaActiva
+            }
+            onSeleccionar={(ejercicio) => {
+              setEjercicioActivo(ejercicio)
+              setSearchParams({
+                ejercicio: ejercicio.id
+              })
+            }}
+          />
+
+        </>
+
+      )}
 
     </div>
 

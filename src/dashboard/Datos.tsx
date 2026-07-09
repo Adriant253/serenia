@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom'
 import PanelPlanDiario from './components/PanelPlanDiario'
 import { EJERCICIOS } from '../data/ejerciciosData'
 import {
+  contarEjercicios
+} from '../services/ejerciciosService'
+import {
   generarPlanDiario
 } from '../logic/recomendacionesEstres'
 import {
@@ -47,6 +50,9 @@ function Datos() {
       historial: []
     })
 
+  const [totalEjercicios, setTotalEjercicios] =
+    useState(EJERCICIOS.length)
+
   useEffect(() => {
     if (!usuario?.id_usuario) {
       return
@@ -54,6 +60,9 @@ function Datos() {
 
     obtenerProgreso(usuario.id_usuario)
       .then(setProgreso)
+
+    contarEjercicios()
+      .then(setTotalEjercicios)
   }, [usuario?.id_usuario])
 
   const plan = usuario
@@ -74,10 +83,10 @@ function Datos() {
     Object.keys(progreso.completados).length
 
   const porcentajeCatalogo =
-    EJERCICIOS.length > 0
+    totalEjercicios > 0
       ? Math.round(
           (ejerciciosProbados /
-            EJERCICIOS.length) *
+            totalEjercicios) *
             100
         )
       : 0
@@ -173,7 +182,7 @@ function Datos() {
           <div>
             <strong>
               {ejerciciosProbados}
-              /{EJERCICIOS.length}
+              /{totalEjercicios}
             </strong>
             <span>
               Ejercicios explorados
