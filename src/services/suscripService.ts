@@ -1,11 +1,3 @@
-import {
-  mensajeErrorRed
-} from '../config/api'
-
-import {
-  parseJsonResponse
-} from '../config/parseJsonResponse'
-
 const API_URL =
   'https://serenia-api.onrender.com'
 

@@ -665,7 +665,10 @@ export function useRecordatoriosDescanso() {
       ) {
         mostrarAvisoEnPantalla(
           'Error',
-          respuesta.mensaje
+          String(
+            respuesta.mensaje ||
+            'No se pudieron cargar los recordatorios.'
+          )
         )
 
         setRecordatorios([])
@@ -912,7 +915,10 @@ export function useRecordatoriosDescanso() {
 
       mostrarAvisoEnPantalla(
         'Guardado',
-        respuesta.mensaje
+        String(
+          respuesta.mensaje ||
+          'Recordatorio guardado.'
+        )
       )
 
       limpiarFormulario()
@@ -1000,7 +1006,10 @@ export function useRecordatoriosDescanso() {
       ) {
         mostrarAvisoEnPantalla(
           'Error',
-          respuesta.mensaje
+          String(
+            respuesta.mensaje ||
+            'No se pudo eliminar el recordatorio.'
+          )
         )
 
         return
@@ -1012,7 +1021,10 @@ export function useRecordatoriosDescanso() {
 
       mostrarAvisoEnPantalla(
         'Eliminado',
-        respuesta.mensaje
+        String(
+          respuesta.mensaje ||
+          'Recordatorio eliminado.'
+        )
       )
 
       await cargarRecordatorios()
@@ -1097,7 +1109,10 @@ export function useRecordatoriosDescanso() {
       ) {
         mostrarAvisoEnPantalla(
           'Error',
-          respuesta.mensaje
+          String(
+            respuesta.mensaje ||
+            'No se pudo actualizar el estado.'
+          )
         )
 
         return

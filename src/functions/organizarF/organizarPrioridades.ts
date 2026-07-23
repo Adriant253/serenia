@@ -604,7 +604,7 @@ export function useOrganizarPrioridades() {
         await obtenerOrganizarPrioridadesUsuario(idUsuario)
 
       if (Number(respuesta.success) === 0) {
-        mostrarAviso(respuesta.mensaje)
+        mostrarAviso(String(respuesta.mensaje || 'No se pudieron cargar las tareas.'))
         setTareas([])
         return
       }
@@ -863,11 +863,11 @@ export function useOrganizarPrioridades() {
           return
         }
 
-        mostrarAviso(respuesta.mensaje)
+        mostrarAviso(String(respuesta.mensaje || 'No se pudo guardar la tarea.'))
         return
       }
 
-      mostrarAviso(respuesta.mensaje)
+      mostrarAviso(String(respuesta.mensaje || 'Tarea guardada.'))
       limpiarFormulario()
       cerrarModal()
       await cargarTareas()
@@ -925,12 +925,12 @@ export function useOrganizarPrioridades() {
       })
 
       if (Number(respuesta.success) === 0) {
-        mostrarAviso(respuesta.mensaje)
+        mostrarAviso(String(respuesta.mensaje || 'No se pudo eliminar la tarea.'))
         return
       }
 
       setTareaConfirmandoEliminar(null)
-      mostrarAviso(respuesta.mensaje)
+      mostrarAviso(String(respuesta.mensaje || 'Tarea eliminada.'))
       await cargarTareas()
 
     } catch (error) {
@@ -981,7 +981,7 @@ export function useOrganizarPrioridades() {
       })
 
       if (Number(respuesta.success) === 0) {
-        mostrarAviso(respuesta.mensaje)
+        mostrarAviso(String(respuesta.mensaje || 'No se pudo actualizar el estado.'))
         return
       }
 

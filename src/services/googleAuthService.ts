@@ -43,20 +43,26 @@ export async function loginGoogle(
 export function guardarSesion(
   data: Record<string, unknown>
 ) {
-  const { success: _s, mensaje: _m, ...resto } = data
+  const idUsuario = Number(data.id_usuario)
 
   const usuario = {
-    ...resto,
+    id_usuario: idUsuario,
+    nombre: String(data.nombre || ''),
+    email: String(data.email || ''),
     estado_suscripcion: String(
-      resto.estado_suscripcion || 'free'
+      data.estado_suscripcion || 'free'
     )
       .trim()
-      .toLowerCase()
+      .toLowerCase(),
+    fecha_nacimiento: data.fecha_nacimiento
+      ? String(data.fecha_nacimiento)
+      : undefined,
+    fecha_registro: data.fecha_registro
+      ? String(data.fecha_registro)
+      : undefined
   }
 
   guardarUsuarioSesion(usuario)
-
-  const idUsuario = Number(usuario.id_usuario)
 
   if (Number.isInteger(idUsuario) && idUsuario > 0) {
     restaurarTemaUsuario(idUsuario)
