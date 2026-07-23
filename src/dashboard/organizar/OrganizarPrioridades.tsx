@@ -1,4 +1,4 @@
-import './OrganizarPrioridades.css'
+import './organizarPrioridades.css'
 
 import {
   obtenerClaseEtiqueta,
