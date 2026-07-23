@@ -13,7 +13,8 @@ import '../styles/Landing.css'
 const SECCIONES = [
   { id: 'beneficios', label: 'Beneficios' },
   { id: 'como-funciona', label: 'Cómo funciona' },
-  { id: 'bienestar', label: 'Bienestar' }
+  { id: 'bienestar', label: 'Bienestar' },
+  { id: 'emergencia', label: 'Emergencia' }
 ] as const
 
 function LandingPage() {
@@ -186,120 +187,138 @@ function LandingPage() {
 
       </header>
 
-      <main className="landing-main">
+<main className="landing-main">
 
-        <section
-          className={
-            loginVisible
-              ? 'landing-hero landing-hero--hidden'
-              : 'landing-hero'
-          }
-        >
+  {!loginVisible ? (
+    <section className="landing-hero">
 
-          <div className="landing-hero-text">
+      <div
+        className="landing-hero-decoration"
+        aria-hidden="true"
+      >
+        <span className="landing-hero-base-light" />
 
-            <h1>
-              Bienestar creado
-              <br />
-              para{' '}
-              <span className="landing-highlight">
-                tu mente
-              </span>
-            </h1>
+        <span className="landing-hero-left-curve" />
+        <span className="landing-hero-left-curve-inner" />
 
-            <p className="landing-subtitle">
-              Rastrea tu estado de ánimo, practica
-              ejercicios de calma y cuida tu
-              bienestar laboral. Logra más con menos
-              estrés.
-            </p>
+        <span className="landing-hero-wave" />
+        <span className="landing-hero-wave-light" />
 
-            <div className="landing-cta-group">
-              <button
-                type="button"
-                className="landing-cta-primary"
-                onClick={abrirLogin}
-              >
-                Comenzar ahora
-              </button>
-              <Link
-                to="/registro"
-                className="landing-cta-secondary"
-              >
-                Crear cuenta gratis
-              </Link>
-            </div>
+        <span className="landing-hero-bubble landing-hero-bubble--1" />
+        <span className="landing-hero-bubble landing-hero-bubble--2" />
+        <span className="landing-hero-bubble landing-hero-bubble--3" />
+        <span className="landing-hero-bubble landing-hero-bubble--4" />
+        <span className="landing-hero-bubble landing-hero-bubble--5" />
+        <span className="landing-hero-bubble landing-hero-bubble--6" />
+        <span className="landing-hero-bubble landing-hero-bubble--7" />
+        <span className="landing-hero-bubble landing-hero-bubble--8" />
+      </div>
 
+      <div className="landing-hero-text">
+
+        <h1>
+          Bienestar creado
+          <br />
+          para{' '}
+          <span className="landing-highlight">
+            tu mente
+          </span>
+        </h1>
+
+        <p className="landing-subtitle">
+          Rastrea tu estado de ánimo, practica
+          ejercicios de calma y cuida tu bienestar
+          laboral. Logra más con menos estrés.
+        </p>
+
+        <div className="landing-cta-group">
+          <button
+            type="button"
+            className="landing-cta-primary"
+            onClick={abrirLogin}
+          >
+            Comenzar ahora
+          </button>
+
+          <Link
+            to="/registro"
+            className="landing-cta-secondary"
+          >
+            Crear cuenta gratis
+          </Link>
+        </div>
+
+      </div>
+
+      <div className="landing-hero-visual">
+        <LandingIllustration />
+      </div>
+
+    </section>
+  ) : (
+    <>
+      <aside className="landing-login-side">
+
+        <div className="landing-login-side-visual">
+          <LandingIllustration />
+        </div>
+
+        <div className="landing-login-side-text">
+          <h2>
+            Tu espacio de calma
+            <br />
+            te espera
+          </h2>
+
+          <blockquote>
+            &ldquo;Cuidar mi bienestar me hace
+            mejor profesional.&rdquo;
+          </blockquote>
+        </div>
+
+        <ul className="landing-login-features">
+          <li>
+            <span>🌿</span>
+            Check-in emocional diario
+          </li>
+
+          <li>
+            <span>🎯</span>
+            Ejercicios de respiración
+          </li>
+
+          <li>
+            <span>📊</span>
+            Historial y metas semanales
+          </li>
+        </ul>
+
+        <div className="landing-login-stats">
+          <div>
+            <strong>5 min</strong>
+            <span>al día</span>
           </div>
 
-          <div className="landing-hero-visual">
-            <LandingIllustration />
+          <div>
+            <strong>100%</strong>
+            <span>gratis</span>
           </div>
 
-        </section>
+          <div>
+            <strong>24/7</strong>
+            <span>disponible</span>
+          </div>
+        </div>
 
-        {loginVisible && (
-          <aside className="landing-login-side">
-            <div className="landing-login-side-visual">
-              <LandingIllustration />
-            </div>
+      </aside>
 
-            <div className="landing-login-side-text">
-              <h2>
-                Tu espacio de calma
-                <br />
-                te espera
-              </h2>
-              <blockquote>
-                &ldquo;Cuidar mi bienestar me hace
-                mejor profesional.&rdquo;
-              </blockquote>
-            </div>
+      <aside className="landing-login-panel landing-login-panel--visible">
+        <LoginForm onClose={cerrarLogin} />
+      </aside>
+    </>
+  )}
 
-            <ul className="landing-login-features">
-              <li>
-                <span>🌿</span>
-                Check-in emocional diario
-              </li>
-              <li>
-                <span>🎯</span>
-                Ejercicios de respiración
-              </li>
-              <li>
-                <span>📊</span>
-                Historial y metas semanales
-              </li>
-            </ul>
-
-            <div className="landing-login-stats">
-              <div>
-                <strong>5 min</strong>
-                <span>al día</span>
-              </div>
-              <div>
-                <strong>100%</strong>
-                <span>gratis</span>
-              </div>
-              <div>
-                <strong>24/7</strong>
-                <span>disponible</span>
-              </div>
-            </div>
-          </aside>
-        )}
-
-        <aside
-          className={
-            loginVisible
-              ? 'landing-login-panel landing-login-panel--visible'
-              : 'landing-login-panel'
-          }
-        >
-          <LoginForm onClose={cerrarLogin} />
-        </aside>
-
-      </main>
-
+</main>
       {/* Beneficios */}
       <section
         id="beneficios"
@@ -418,33 +437,138 @@ function LandingPage() {
         </div>
       </section>
 
+
+{/* Emergencia */}
+<section
+  id="emergencia"
+  className="landing-section landing-emergency"
+>
+  <div className="landing-emergency-content">
+    <span className="landing-emergency-badge">
+      Ayuda rápida
+    </span>
+
+    <h2 className="landing-section-title">
+      Números de emergencia
+    </h2>
+
+    <p className="landing-emergency-text">
+      Accede rápidamente a contactos importantes
+      en caso de una situación urgente.
+    </p>
+
+    <div className="landing-emergency-grid">
+
+      <div className="landing-emergency-card">
+        <span className="landing-emergency-icon">
+          🚨
+        </span>
+        <h3>Emergencias</h3>
+        <p>
+          Contacto directo para situaciones que
+          requieren atención inmediata.
+        </p>
+        <a
+          href="tel:911"
+          className="landing-emergency-btn"
+        >
+          Llamar ahora
+        </a>
+      </div>
+
+      <div className="landing-emergency-card">
+        <span className="landing-emergency-icon">
+          🏥
+        </span>
+        <h3>Hospitales</h3>
+        <p>
+          Consulta o registra contactos de hospitales
+          cercanos o de confianza.
+        </p>
+        <a
+          href="tel:911"
+          className="landing-emergency-btn landing-emergency-btn--secondary"
+        >
+          Contactar hospital
+        </a>
+      </div>
+
+      <div className="landing-emergency-card">
+        <span className="landing-emergency-icon">
+          🤝
+        </span>
+        <h3>Centros de ayuda</h3>
+        <p>
+          Espacios de apoyo para recibir orientación
+          emocional o asistencia.
+        </p>
+        <a
+          href="tel:911"
+          className="landing-emergency-btn landing-emergency-btn--secondary"
+        >
+          Pedir ayuda
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
       <footer className="landing-footer">
         <Link to="/" className="landing-brand">
-          <img
-            src="/SereniaLogo.jpg"
-            alt="Serenia"
-            className="landing-brand-logo"
-          />
-          <span>serenia</span>
+
+
         </Link>
         <p>© 2026 Serenia · Tu espacio de calma</p>
-        <div className="landing-footer-links">
-          <button
-            type="button"
-            onClick={() => irASeccion('beneficios')}
-          >
-            Beneficios
-          </button>
-          <button
-            type="button"
-            onClick={abrirLogin}
-          >
-            Iniciar sesión
-          </button>
-          <Link to="/registro">
-            Registrarse
-          </Link>
-        </div>
+
+
+
+
+
+
+
+
+<div className="landing-footer-links">
+  <button
+    type="button"
+    onClick={() => irASeccion('beneficios')}
+  >
+    Beneficios
+  </button>
+
+  <button
+    type="button"
+    onClick={() => irASeccion('emergencia')}
+  >
+    Emergencia
+  </button>
+
+  <button
+    type="button"
+    onClick={abrirLogin}
+  >
+    Iniciar sesión
+  </button>
+
+  <Link to="/registro">
+    Registrarse
+  </Link>
+</div>
+
+
+
+
+
+
+
+
+
+
       </footer>
 
     </div>

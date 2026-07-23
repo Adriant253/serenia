@@ -1,137 +1,1457 @@
-.sonidos-container {
+/*
+|--------------------------------------------------------------------------
+| BASE Y VARIABLES DEL MÓDULO
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme,
+.serenia-dark-theme * {
+  box-sizing: border-box;
+}
+
+.serenia-dark-theme {
+  --sonidos-fondo:
+    var(--color-bg, #f4f8f7);
+
+  --sonidos-superficie:
+    var(--color-surface, #ffffff);
+
+  --sonidos-superficie-muted:
+    var(--color-surface-muted, #f0f5f3);
+
+  --sonidos-texto:
+    var(--color-text, #1a2e28);
+
+  --sonidos-texto-muted:
+    var(--color-text-muted, #6b7280);
+
+  --sonidos-borde:
+    var(--color-border, #dbe4e2);
+
+  --sonidos-acento:
+    var(--color-accent, #4aa381);
+
+  --sonidos-acento-hover:
+    var(--color-accent-hover, #347a60);
+
+  --sonidos-acento-claro:
+    var(--color-accent-light, #7bc8a4);
+
+  --sonidos-acento-soft:
+    var(
+      --color-accent-soft,
+      rgba(74, 163, 129, 0.12)
+    );
+
+  --sonidos-secundario:
+    var(--color-secondary, #6fa8dc);
+
+  --sonidos-secundario-soft:
+    var(
+      --color-secondary-soft,
+      rgba(111, 168, 220, 0.12)
+    );
+
+  --sonidos-error:
+    var(--color-error, #dc2626);
+
+  --sonidos-error-soft:
+    var(--color-error-bg, #fef2f2);
+
+  --sonidos-sombra:
+    var(
+      --color-shadow,
+      rgba(74, 163, 129, 0.1)
+    );
+
+  --sonidos-radio-sm:
+    var(--radius-sm, 8px);
+
+  --sonidos-radio-md:
+    var(--radius-md, 12px);
+
+  --sonidos-radio-lg:
+    var(--radius-lg, 16px);
+
+  --sonidos-radio-xl:
+    var(--radius-xl, 20px);
+
   width: 100%;
-  max-width: 960px;
-  padding: 0 20px 40px;
+  min-height: 100vh;
+
+  padding:
+    28px 28px 130px;
+
+  background:
+    radial-gradient(
+      circle at top left,
+      var(--sonidos-acento-soft),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at top right,
+      var(--sonidos-secundario-soft),
+      transparent 36%
+    ),
+    var(--sonidos-fondo);
+
+  color:
+    var(--sonidos-texto);
+
+  font-family:
+    var(
+      --font-family,
+      'Inter',
+      'Segoe UI',
+      system-ui,
+      sans-serif
+    );
+
+  transition:
+    var(
+      --theme-transition,
+      background-color 0.4s ease,
+      color 0.3s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease
+    );
 }
 
-.sonidos-hero {
-  text-align: center;
-  margin-bottom: 32px;
+html[data-theme="dark"]
+.serenia-dark-theme {
+  color-scheme: dark;
 }
 
-.sonidos-titulo {
-  color: var(--color-accent);
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 8px;
+html[data-theme="serenia"]
+.serenia-dark-theme,
+html[data-theme="ocean"]
+.serenia-dark-theme,
+html[data-theme="sunset"]
+.serenia-dark-theme,
+html[data-theme="forest"]
+.serenia-dark-theme {
+  color-scheme: light;
 }
 
-.sonidos-subtitulo {
-  color: var(--color-text-muted);
-  font-size: 1rem;
-  max-width: 560px;
+.serenia-dark-theme button,
+.serenia-dark-theme input,
+.serenia-dark-theme select {
+  font-family: inherit;
+}
+
+/*
+|--------------------------------------------------------------------------
+| DISTRIBUCIÓN PRINCIPAL
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.layout-content {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    320px;
+
+  align-items: start;
+
+  width: 100%;
+  max-width: 1300px;
+
   margin: 0 auto;
+
+  gap: 28px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| ENCABEZADO DINÁMICO
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.header-app {
+  position: relative;
+
+  grid-column: 1 / -1;
+
+  width: 100%;
+  min-height: 145px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 0 4px;
+  padding: 26px 28px;
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    var(--sonidos-borde);
+
+  border-radius:
+    var(--sonidos-radio-xl);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--sonidos-acento-soft),
+      var(--sonidos-secundario-soft)
+    ),
+    var(--sonidos-superficie);
+
+  color:
+    var(--sonidos-texto);
+
+  box-shadow:
+    0 14px 32px
+    var(--sonidos-sombra);
+
+  text-align: center;
+
+  transition:
+    var(
+      --theme-transition,
+      background-color 0.4s ease,
+      color 0.3s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease
+    );
+}
+
+/*
+|--------------------------------------------------------------------------
+| CÍRCULOS DECORATIVOS DEL ENCABEZADO
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.header-app::before {
+  content: '';
+
+  position: absolute;
+  top: -110px;
+  left: 10%;
+
+  width: 235px;
+  height: 235px;
+
+  border-radius: 50%;
+
+  background:
+    var(--sonidos-acento-soft);
+
+  opacity: 0.82;
+
+  pointer-events: none;
+
+  transition:
+    background-color 0.4s ease;
+}
+
+.serenia-dark-theme
+.header-app::after {
+  content: '';
+
+  position: absolute;
+  right: -70px;
+  bottom: -135px;
+
+  width: 280px;
+  height: 280px;
+
+  border-radius: 50%;
+
+  background:
+    var(--sonidos-secundario-soft);
+
+  opacity: 0.8;
+
+  pointer-events: none;
+
+  transition:
+    background-color 0.4s ease;
+}
+
+.serenia-dark-theme
+.header-app h1 {
+  position: relative;
+  z-index: 2;
+
+  margin: 0;
+
+  color:
+    var(--sonidos-texto);
+
+  font-size:
+    clamp(
+      28px,
+      4vw,
+      38px
+    );
+
+  font-weight: 800;
+  line-height: 1.2;
+
+  transition:
+    color 0.3s ease;
+}
+
+.serenia-dark-theme
+.header-app .subtitle {
+  position: relative;
+  z-index: 2;
+
+  margin: 8px 0 0;
+
+  color:
+    var(--sonidos-texto-muted);
+
+  font-size: 15px;
   line-height: 1.5;
+
+  transition:
+    color 0.3s ease;
 }
 
-.sonidos-actions {
+/*
+|--------------------------------------------------------------------------
+| CONTENEDOR DE ÁLBUMES
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.albumes-container {
   display: flex;
-  gap: 12px;
-  margin-top: 16px;
+  flex-direction: column;
+
+  min-width: 0;
+
+  gap: 28px;
 }
 
-.sonidos-search {
-  flex: 1;
-  padding: 8px 12px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  background: var(--color-surface-alt);
-  color: var(--color-text);
+/*
+|--------------------------------------------------------------------------
+| SECCIONES DE ÁLBUM
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.album-section {
+  width: 100%;
+
+  padding: 24px;
+
+  border:
+    1px solid
+    var(--sonidos-borde);
+
+  border-radius:
+    var(--sonidos-radio-xl);
+
+  background:
+    var(--sonidos-superficie);
+
+  color:
+    var(--sonidos-texto);
+
+  box-shadow:
+    0 12px 28px
+    var(--sonidos-sombra);
+
+  transition:
+    var(
+      --theme-transition,
+      background-color 0.4s ease,
+      color 0.3s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease
+    );
 }
 
-.sonidos-tabs {
-  display: flex;
-  gap: 12px;
+.serenia-dark-theme
+.album-section:hover {
+  border-color:
+    var(--sonidos-acento);
+
+  box-shadow:
+    0 16px 34px
+    var(--sonidos-sombra);
+}
+
+/*
+|--------------------------------------------------------------------------
+| INFORMACIÓN DEL ÁLBUM
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.album-header-info {
   margin-bottom: 20px;
 }
 
-.sonidos-tab {
-  padding: 8px 16px;
-  border-radius: 99px;
-  background: var(--color-surface);
-  color: var(--color-accent);
-  border: 2px solid var(--color-border);
+.serenia-dark-theme
+.album-header-info h2 {
+  margin:
+    0 0 8px;
+
+  color:
+    var(--sonidos-texto);
+
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.25;
+
+  transition:
+    color 0.3s ease;
+}
+
+.serenia-dark-theme
+.album-tag {
+  display: inline-flex;
+  align-items: center;
+
+  margin-bottom: 10px;
+  padding: 5px 12px;
+
+  border:
+    1px solid
+    var(--sonidos-acento);
+
+  border-radius: 999px;
+
+  background:
+    var(--sonidos-acento-soft);
+
+  color:
+    var(--sonidos-acento);
+
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.serenia-dark-theme
+.album-desc {
+  max-width: 760px;
+
+  margin: 0;
+
+  color:
+    var(--sonidos-texto-muted);
+
+  font-size: 14px;
+  line-height: 1.55;
+
+  transition:
+    color 0.3s ease;
+}
+
+/*
+|--------------------------------------------------------------------------
+| CUADRÍCULA DE SONIDOS
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.cards-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(210px, 1fr)
+    );
+
+  gap: 18px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| TARJETAS CON IMAGEN
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.sound-card {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  width: 100%;
+  height: 168px;
+
+  padding: 18px;
+
+  overflow: hidden;
+
+  border:
+    2px solid
+    var(--sonidos-borde);
+
+  border-radius:
+    var(--sonidos-radio-lg);
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 9px 20px
+    rgba(0, 0, 0, 0.2);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+.serenia-dark-theme
+.sound-card:hover {
+  transform:
+    translateY(-4px);
+
+  border-color:
+    var(--sonidos-acento);
+
+  box-shadow:
+    0 14px 28px
+    var(--sonidos-sombra);
+
+  filter:
+    brightness(1.05);
+}
+
+.serenia-dark-theme
+.sound-card.active-card {
+  border-color:
+    var(--sonidos-acento-claro);
+
+  box-shadow:
+    0 0 0 4px
+    var(--sonidos-acento-soft),
+    0 14px 28px
+    var(--sonidos-sombra);
+}
+
+/*
+|--------------------------------------------------------------------------
+| PARTE SUPERIOR DE LA TARJETA
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.card-top {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 10px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| BOTÓN FAVORITO
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.btn-favorite {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.3);
+
+  border-radius: 50%;
+
+  background:
+    rgba(0, 0, 0, 0.32);
+
+  color: #ffffff;
+
+  font-size: 18px;
+
+  cursor: pointer;
+
+  backdrop-filter:
+    blur(6px);
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.serenia-dark-theme
+.btn-favorite:hover {
+  transform:
+    scale(1.1);
+
+  border-color:
+    rgba(255, 255, 255, 0.6);
+
+  background:
+    rgba(0, 0, 0, 0.48);
+}
+
+/*
+|--------------------------------------------------------------------------
+| BOTÓN REPRODUCIR DE LA TARJETA
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.btn-play-card {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    rgba(255, 255, 255, 0.28);
+
+  border-radius: 50%;
+
+  background:
+    var(--sonidos-acento);
+
+  color: #ffffff;
+
+  font-size: 15px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 7px 16px
+    rgba(0, 0, 0, 0.25);
+
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.serenia-dark-theme
+.btn-play-card:hover {
+  transform:
+    scale(1.08);
+
+  background:
+    var(--sonidos-acento-hover);
+
+  box-shadow:
+    0 9px 20px
+    rgba(0, 0, 0, 0.3);
+}
+
+/*
+|--------------------------------------------------------------------------
+| TEXTO DE LA TARJETA
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.card-body {
+  position: relative;
+  z-index: 2;
+}
+
+.serenia-dark-theme
+.card-body h3 {
+  margin:
+    0 0 5px;
+
+  color: #ffffff;
+
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.3;
+
+  text-shadow:
+    0 2px 5px
+    rgba(0, 0, 0, 0.9);
+}
+
+.serenia-dark-theme
+.duration {
+  color:
+    rgba(255, 255, 255, 0.88);
+
+  font-size: 12px;
+  font-weight: 700;
+
+  text-shadow:
+    0 2px 4px
+    rgba(0, 0, 0, 0.9);
+}
+
+/*
+|--------------------------------------------------------------------------
+| PANEL LATERAL
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.history-panel {
+  position: sticky;
+  top: 22px;
+
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+
+  padding: 22px;
+
+  gap: 28px;
+
+  border:
+    1px solid
+    var(--sonidos-borde);
+
+  border-radius:
+    var(--sonidos-radio-xl);
+
+  background:
+    var(--sonidos-superficie);
+
+  color:
+    var(--sonidos-texto);
+
+  box-shadow:
+    0 12px 28px
+    var(--sonidos-sombra);
+
+  transition:
+    var(
+      --theme-transition,
+      background-color 0.4s ease,
+      color 0.3s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease
+    );
+}
+
+/*
+|--------------------------------------------------------------------------
+| SECCIONES DEL PANEL
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.panel-section h3 {
+  margin:
+    0 0 16px;
+
+  padding-bottom: 10px;
+
+  border-bottom:
+    1px solid
+    var(--sonidos-borde);
+
+  color:
+    var(--sonidos-texto);
+
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.3;
+
+  transition:
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/*
+|--------------------------------------------------------------------------
+| HISTORIAL Y FAVORITOS
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.history-list {
+  display: flex;
+  flex-direction: column;
+
+  margin: 0;
+  padding: 0;
+
+  gap: 9px;
+
+  list-style: none;
+}
+
+.serenia-dark-theme
+.history-item {
+  display: flex;
+  align-items: center;
+
+  min-width: 0;
+
+  padding: 8px;
+
+  gap: 10px;
+
+  border:
+    1px solid
+    transparent;
+
+  border-radius:
+    var(--sonidos-radio-md);
+
+  color:
+    var(--sonidos-texto);
+
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.serenia-dark-theme
+.history-item:hover {
+  border-color:
+    var(--sonidos-borde);
+
+  background:
+    var(--sonidos-superficie-muted);
+}
+
+.serenia-dark-theme
+.bullet {
+  flex: 0 0 auto;
+
+  color:
+    var(--sonidos-acento);
+
+  font-size: 15px;
+}
+
+.serenia-dark-theme
+.history-info {
+  min-width: 0;
+}
+
+.serenia-dark-theme
+.history-info p {
+  margin: 0;
+
+  overflow: hidden;
+
+  color:
+    var(--sonidos-texto);
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.serenia-dark-theme
+.history-info .time {
+  display: block;
+
+  margin-top: 2px;
+
+  color:
+    var(--sonidos-texto-muted);
+
+  font-size: 11px;
+}
+
+.serenia-dark-theme
+.fav-item-clickable {
   cursor: pointer;
 }
 
-.sonidos-tab.active {
-  background: linear-gradient(90deg, var(--color-accent), var(--color-secondary));
-  color: #fff;
-  border-color: transparent;
+.serenia-dark-theme
+.fav-item-clickable:hover {
+  transform:
+    translateX(3px);
+
+  border-color:
+    var(--sonidos-acento);
+
+  background:
+    var(--sonidos-acento-soft);
 }
 
-.sonidos-player {
-  background: var(--color-surface);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: 0 8px 24px var(--color-shadow);
-  margin-bottom: 32px;
+.serenia-dark-theme
+.empty-text {
+  margin: 0;
+
+  color:
+    var(--sonidos-texto-muted);
+
+  font-size: 13px;
+  line-height: 1.5;
 }
 
-.player-bar {
+/*
+|--------------------------------------------------------------------------
+| REPRODUCTOR FLOTANTE
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.floating-player {
+  position: fixed;
+
+  left: 50%;
+  bottom: 20px;
+
+  z-index: 1000;
+
   display: flex;
   align-items: center;
-  gap: 12px;
-}
-
-.player-progress {
-  flex: 1;
-  height: 8px;
-  background: var(--color-border);
-  border-radius: 99px;
-  overflow: hidden;
-}
-
-.player-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-accent), var(--color-secondary));
-  border-radius: 99px;
-}
-
-.sonidos-album {
-  margin-bottom: 32px;
-}
-
-.album-titulo {
-  color: var(--color-accent);
-  font-size: 1.35rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.album-subtitulo {
-  color: var(--color-text-muted);
-  font-size: 0.95rem;
-  margin-bottom: 16px;
-}
-
-.album-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.sonido-card {
-  background: var(--color-surface);
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 4px 12px var(--color-shadow);
-  display: flex;
   justify-content: space-between;
+
+  width:
+    min(
+      850px,
+      calc(100vw - 32px)
+    );
+
+  min-height: 72px;
+
+  padding:
+    12px 24px;
+
+  gap: 22px;
+
+  transform:
+    translateX(-50%);
+
+  border:
+    2px solid
+    var(--sonidos-acento);
+
+  border-radius: 999px;
+
+  background:
+    var(--sonidos-superficie);
+
+  color:
+    var(--sonidos-texto);
+
+  box-shadow:
+    0 18px 45px
+    rgba(0, 0, 0, 0.3);
+
+  backdrop-filter:
+    blur(14px);
+
+  transition:
+    var(
+      --theme-transition,
+      background-color 0.4s ease,
+      color 0.3s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease
+    );
+}
+
+/*
+|--------------------------------------------------------------------------
+| INFORMACIÓN DE LA PISTA
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.player-track {
+  display: flex;
   align-items: center;
+
+  min-width: 0;
+
+  gap: 12px;
 }
 
-.sonido-card h4 {
-  color: var(--color-text);
+.serenia-dark-theme
+.disc-icon {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--sonidos-acento-soft),
+      var(--sonidos-secundario-soft)
+    );
+
+  font-size: 22px;
 }
 
-.sonido-card p {
-  color: var(--color-text-muted);
-  font-size: 0.85rem;
+.serenia-dark-theme
+.player-track h4 {
+  margin: 0;
+
+  overflow: hidden;
+
+  color:
+    var(--sonidos-texto);
+
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.3;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.sonido-duracion {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--color-secondary);
+.serenia-dark-theme
+.player-track .status {
+  margin:
+    3px 0 0;
+
+  color:
+    var(--sonidos-acento);
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/*
+|--------------------------------------------------------------------------
+| CONTROLES DEL REPRODUCTOR
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.player-controls-row {
+  display: flex;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.serenia-dark-theme
+.btn-main-play {
+  flex: 0 0 auto;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  border: none;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--sonidos-acento),
+      var(--sonidos-secundario)
+    );
+
+  color: #ffffff;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 18px
+    var(--sonidos-sombra);
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease;
+}
+
+.serenia-dark-theme
+.btn-main-play:hover {
+  transform:
+    scale(1.08);
+
+  filter:
+    brightness(1.04);
+}
+
+/*
+|--------------------------------------------------------------------------
+| VOLUMEN Y TEMPORIZADOR
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.volume-slider-container,
+.serenia-dark-theme
+.timer-dropdown-container {
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  color:
+    var(--sonidos-texto-muted);
+
+  font-size: 12px;
+}
+
+.serenia-dark-theme
+.volume-slider-container input {
+  width: 90px;
+
+  margin: 0;
+
+  accent-color:
+    var(--sonidos-acento);
+
+  cursor: pointer;
+}
+
+.serenia-dark-theme
+.timer-dropdown-container select {
+  min-width: 125px;
+
+  padding: 7px 9px;
+
+  border:
+    1px solid
+    var(--sonidos-borde);
+
+  border-radius:
+    var(--sonidos-radio-sm);
+
+  outline: none;
+
+  background:
+    var(--sonidos-superficie-muted);
+
+  color:
+    var(--sonidos-texto);
+
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.serenia-dark-theme
+.timer-dropdown-container select:focus {
+  border-color:
+    var(--sonidos-acento);
+
+  box-shadow:
+    0 0 0 3px
+    var(--sonidos-acento-soft);
+}
+
+.serenia-dark-theme
+.timer-dropdown-container option {
+  background:
+    var(--sonidos-superficie);
+
+  color:
+    var(--sonidos-texto);
+}
+
+.serenia-dark-theme
+.countdown {
+  color:
+    var(--sonidos-acento);
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/*
+|--------------------------------------------------------------------------
+| TRANSICIONES DEL TEMA
+|--------------------------------------------------------------------------
+*/
+
+.serenia-dark-theme
+.header-app,
+.serenia-dark-theme
+.album-section,
+.serenia-dark-theme
+.history-panel,
+.serenia-dark-theme
+.history-item,
+.serenia-dark-theme
+.floating-player,
+.serenia-dark-theme
+.timer-dropdown-container select {
+  transition:
+    var(
+      --theme-transition,
+      background-color 0.4s ease,
+      color 0.3s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease
+    );
+}
+
+/*
+|--------------------------------------------------------------------------
+| AJUSTES DEL TEMA OSCURO
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"]
+.serenia-dark-theme
+.header-app,
+html[data-theme="dark"]
+.serenia-dark-theme
+.album-section,
+html[data-theme="dark"]
+.serenia-dark-theme
+.history-panel,
+html[data-theme="dark"]
+.serenia-dark-theme
+.floating-player {
+  background-color:
+    var(--sonidos-superficie);
+
+  color:
+    var(--sonidos-texto);
+}
+
+html[data-theme="dark"]
+.serenia-dark-theme
+.timer-dropdown-container select {
+  color-scheme: dark;
+
+  background:
+    var(--sonidos-superficie-muted);
+
+  color:
+    var(--sonidos-texto);
+}
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE PARA TABLET
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 1050px) {
+  .serenia-dark-theme
+  .layout-content {
+    grid-template-columns: 1fr;
+  }
+
+  .serenia-dark-theme
+  .history-panel {
+    position: static;
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, 1fr);
+
+    gap: 22px;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE PARA REPRODUCTOR
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 850px) {
+  .serenia-dark-theme
+  .floating-player {
+    align-items: stretch;
+
+    width:
+      calc(100vw - 28px);
+
+    padding:
+      14px 18px;
+
+    border-radius:
+      var(--sonidos-radio-xl);
+
+    flex-direction: column;
+
+    gap: 13px;
+  }
+
+  .serenia-dark-theme
+  .player-controls-row {
+    justify-content: center;
+
+    flex-wrap: wrap;
+
+    gap: 14px;
+  }
+
+  .serenia-dark-theme
+  .player-track {
+    justify-content: center;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE PARA CELULAR
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 700px) {
+  .serenia-dark-theme {
+    padding:
+      16px 14px 210px;
+  }
+
+  .serenia-dark-theme
+  .header-app {
+    min-height: 125px;
+
+    padding:
+      22px 18px;
+  }
+
+  .serenia-dark-theme
+  .header-app h1 {
+    font-size: 26px;
+  }
+
+  .serenia-dark-theme
+  .header-app .subtitle {
+    font-size: 13px;
+  }
+
+  .serenia-dark-theme
+  .album-section {
+    padding: 18px;
+  }
+
+  .serenia-dark-theme
+  .album-header-info h2 {
+    font-size: 21px;
+  }
+
+  .serenia-dark-theme
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .serenia-dark-theme
+  .sound-card {
+    height: 180px;
+  }
+
+  .serenia-dark-theme
+  .history-panel {
+    grid-template-columns: 1fr;
+
+    padding: 18px;
+  }
+
+  .serenia-dark-theme
+  .header-app::before {
+    top: -100px;
+    left: -50px;
+  }
+
+  .serenia-dark-theme
+  .header-app::after {
+    right: -130px;
+    bottom: -140px;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE PARA CELULAR PEQUEÑO
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 520px) {
+  .serenia-dark-theme
+  .floating-player {
+    bottom: 10px;
+
+    width:
+      calc(100vw - 20px);
+
+    padding:
+      13px 14px;
+  }
+
+  .serenia-dark-theme
+  .player-controls-row {
+    flex-direction: column;
+
+    width: 100%;
+  }
+
+  .serenia-dark-theme
+  .volume-slider-container,
+  .serenia-dark-theme
+  .timer-dropdown-container {
+    justify-content: center;
+
+    width: 100%;
+  }
+
+  .serenia-dark-theme
+  .volume-slider-container input {
+    width: 130px;
+  }
+
+  .serenia-dark-theme
+  .timer-dropdown-container select {
+    flex: 1;
+
+    max-width: 190px;
+  }
+
+  .serenia-dark-theme
+  .player-track h4 {
+    max-width: 220px;
+  }
 }

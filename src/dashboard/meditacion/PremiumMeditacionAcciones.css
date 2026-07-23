@@ -1,0 +1,60 @@
+.premium-meditacion-acciones {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 10px;
+
+  width: 100%;
+}
+
+.premium-meditacion-acciones > button {
+  grid-column: auto;
+
+  width: 100% !important;
+  min-width: 0;
+
+  margin: 0;
+}
+
+/*
+|--------------------------------------------------------------------------
+| CORRECCIÓN PARA EL TEMPORIZADOR
+|--------------------------------------------------------------------------
+|
+| En TemporizadorMeditacion.css, el botón principal normalmente ocupa
+| todas las columnas. Dentro del modal Premium queremos que solamente
+| ocupe una columna, igual que el modal de las guías.
+|
+*/
+
+.premium-meditacion-acciones
+> .temporizador-meditacion-boton-principal {
+  grid-column: auto;
+}
+
+/*
+|--------------------------------------------------------------------------
+| TABLET Y TELÉFONO
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 440px) {
+  .premium-meditacion-acciones {
+    grid-template-columns: 1fr;
+  }
+
+  /*
+  | En pantallas pequeñas mostramos primero
+  | el botón Pagar Premium.
+  */
+
+  .premium-meditacion-acciones
+  > button:last-child {
+    grid-row: 1;
+  }
+}

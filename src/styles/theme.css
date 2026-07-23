@@ -1,37 +1,4 @@
 :root,
-[data-theme="dark"] {
-  --color-bg: #0d1210;
-  --color-bg-auth: #111916;
-  --color-surface: #1a221e;
-  --color-surface-muted: #222c28;
-  --color-text: #ecf5f1;
-  --color-text-muted: #8fa89e;
-  --color-border: #2a3832;
-  --color-accent: #7bc8a4;
-  --color-accent-hover: #4aa381;
-  --color-accent-light: #9dd9bc;
-  --color-accent-soft: rgba(123, 200, 164, 0.15);
-  --color-secondary: #6fa8dc;
-  --color-secondary-soft: rgba(111, 168, 220, 0.12);
-  --color-info-bg: rgba(111, 168, 220, 0.15);
-  --color-info-text: #93c5fd;
-  --color-success: #34d399;
-  --color-success-bg: rgba(52, 211, 153, 0.12);
-  --color-warning: #fbbf24;
-  --color-warning-bg: rgba(251, 191, 36, 0.12);
-  --color-error: #f87171;
-  --color-error-bg: rgba(248, 113, 113, 0.12);
-  --color-danger-text: #fca5a5;
-  --color-shadow: rgba(0, 0, 0, 0.35);
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-  --theme-transition: background-color 0.4s ease, color 0.3s ease,
-    border-color 0.4s ease, box-shadow 0.4s ease;
-}
-
 [data-theme="serenia"] {
   --color-bg: #f4f8f7;
   --color-bg-auth: #e7f5ef;
@@ -56,6 +23,39 @@
   --color-error-bg: #fef2f2;
   --color-danger-text: #b91c1c;
   --color-shadow: rgba(74, 163, 129, 0.1);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+  --theme-transition: background-color 0.4s ease, color 0.3s ease,
+    border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0d1210;
+  --color-bg-auth: #111916;
+  --color-surface: #1a221e;
+  --color-surface-muted: #222c28;
+  --color-text: #ecf5f1;
+  --color-text-muted: #8fa89e;
+  --color-border: #2a3832;
+  --color-accent: #7bc8a4;
+  --color-accent-hover: #4aa381;
+  --color-accent-light: #9dd9bc;
+  --color-accent-soft: rgba(123, 200, 164, 0.15);
+  --color-secondary: #6fa8dc;
+  --color-secondary-soft: rgba(111, 168, 220, 0.12);
+  --color-info-bg: rgba(111, 168, 220, 0.15);
+  --color-info-text: #93c5fd;
+  --color-success: #34d399;
+  --color-success-bg: rgba(52, 211, 153, 0.12);
+  --color-warning: #fbbf24;
+  --color-warning-bg: rgba(251, 191, 36, 0.12);
+  --color-error: #f87171;
+  --color-error-bg: rgba(248, 113, 113, 0.12);
+  --color-danger-text: #fca5a5;
+  --color-shadow: rgba(0, 0, 0, 0.35);
 }
 
 [data-theme="ocean"] {
@@ -137,14 +137,11 @@
 }
 
 html {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
-html[data-theme="serenia"],
-html[data-theme="ocean"],
-html[data-theme="sunset"],
-html[data-theme="forest"] {
-  color-scheme: light;
+html[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {

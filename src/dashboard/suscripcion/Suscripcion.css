@@ -1,0 +1,1437 @@
+/*
+|--------------------------------------------------------------------------
+| PÁGINA PRINCIPAL
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-pagina {
+  width: 100%;
+  min-width: 0;
+  min-height: 100%;
+
+  padding:
+    clamp(20px, 3vw, 38px)
+    clamp(14px, 2.5vw, 30px);
+
+  overflow-x: hidden;
+
+  background:
+    radial-gradient(
+      circle at 8% 5%,
+      var(--color-accent-soft),
+      transparent 34%
+    ),
+    radial-gradient(
+      circle at 92% 10%,
+      var(--color-secondary-soft),
+      transparent 32%
+    ),
+    var(--color-bg);
+
+  color: var(--color-text);
+
+  transition:
+    var(--theme-transition);
+}
+
+.suscripcion-contenedor {
+  width: min(1120px, 100%);
+  min-width: 0;
+
+  margin: 0 auto;
+}
+
+/*
+|--------------------------------------------------------------------------
+| ENCABEZADO
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-encabezado {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 18px;
+
+  min-width: 0;
+
+  margin-bottom: 28px;
+}
+
+.suscripcion-encabezado > div {
+  min-width: 0;
+}
+
+.suscripcion-volver {
+  display: grid;
+
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  width: 46px;
+  height: 46px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius:
+    var(--radius-lg);
+
+  background:
+    var(--color-surface);
+
+  color:
+    var(--color-accent);
+
+  font-family: inherit;
+  font-size: 25px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 24px
+    var(--color-shadow);
+
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.suscripcion-volver:hover {
+  transform:
+    translateY(-2px);
+
+  border-color:
+    var(--color-accent-light);
+
+  background:
+    var(--color-accent-soft);
+
+  color:
+    var(--color-accent-hover);
+
+  box-shadow:
+    0 12px 28px
+    var(--color-shadow);
+}
+
+.suscripcion-volver:focus-visible {
+  outline:
+    3px solid
+    var(--color-accent-soft);
+
+  outline-offset: 3px;
+}
+
+.suscripcion-etiqueta {
+  display: inline-flex;
+
+  align-items: center;
+
+  margin-bottom: 8px;
+
+  padding: 7px 12px;
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius: 999px;
+
+  background:
+    var(--color-accent-soft);
+
+  color:
+    var(--color-accent);
+
+  font-size: 13px;
+  font-weight: 800;
+
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.suscripcion-encabezado h1 {
+  margin: 0;
+
+  color:
+    var(--color-text);
+
+  font-size:
+    clamp(
+      2rem,
+      4vw,
+      3rem
+    );
+
+  line-height: 1.1;
+
+  letter-spacing:
+    -0.035em;
+
+  overflow-wrap: anywhere;
+}
+
+.suscripcion-encabezado p {
+  max-width: 680px;
+
+  margin:
+    12px 0 0;
+
+  color:
+    var(--color-text-muted);
+
+  font-size:
+    clamp(
+      0.9rem,
+      1.5vw,
+      1rem
+    );
+
+  line-height: 1.65;
+}
+
+/*
+|--------------------------------------------------------------------------
+| COLUMNAS
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-columnas {
+  display: grid;
+
+  grid-template-columns:
+    minmax(280px, 0.85fr)
+    minmax(360px, 1.15fr);
+
+  align-items: start;
+
+  gap: 26px;
+
+  min-width: 0;
+}
+
+.suscripcion-plan,
+.suscripcion-beneficios {
+  min-width: 0;
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius:
+    clamp(
+      20px,
+      2vw,
+      28px
+    );
+
+  background:
+    var(--color-surface);
+
+  color:
+    var(--color-text);
+
+  box-shadow:
+    0 24px 60px
+    var(--color-shadow);
+
+  transition:
+    var(--theme-transition);
+}
+
+/*
+|--------------------------------------------------------------------------
+| TARJETA DEL PLAN
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-plan {
+  position: relative;
+
+  padding:
+    clamp(
+      21px,
+      2.5vw,
+      28px
+    );
+
+  overflow: hidden;
+}
+
+.suscripcion-plan::before {
+  content: '';
+
+  position: absolute;
+
+  top: -90px;
+  right: -90px;
+
+  width: 220px;
+  height: 220px;
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--color-accent-soft),
+      var(--color-secondary-soft)
+    );
+
+  pointer-events: none;
+}
+
+.suscripcion-plan-superior {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 14px;
+
+  min-width: 0;
+}
+
+.suscripcion-plan-superior > div:last-child {
+  min-width: 0;
+}
+
+.suscripcion-icono-premium {
+  display: grid;
+
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  width: 58px;
+  height: 58px;
+
+  border-radius:
+    var(--radius-lg);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--color-accent),
+      var(--color-secondary)
+    );
+
+  color: #ffffff;
+
+  font-size: 28px;
+
+  box-shadow:
+    0 12px 26px
+    var(--color-shadow);
+}
+
+.suscripcion-plan-tipo {
+  color:
+    var(--color-text-muted);
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.suscripcion-plan h2 {
+  margin:
+    3px 0 0;
+
+  color:
+    var(--color-text);
+
+  font-size:
+    clamp(
+      1.45rem,
+      3vw,
+      1.75rem
+    );
+
+  overflow-wrap: anywhere;
+}
+
+/*
+|--------------------------------------------------------------------------
+| PRECIO
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-precio {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+
+  align-items: flex-end;
+
+  gap: 10px;
+
+  min-width: 0;
+
+  margin-top: 36px;
+
+  padding:
+    clamp(
+      19px,
+      2.5vw,
+      24px
+    );
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius:
+    var(--radius-xl);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--color-accent-soft),
+      var(--color-secondary-soft)
+    );
+}
+
+.suscripcion-precio-simbolo {
+  color:
+    var(--color-accent);
+
+  font-size:
+    clamp(
+      2.6rem,
+      6vw,
+      3rem
+    );
+
+  font-weight: 900;
+  line-height: 1;
+
+  letter-spacing: 2px;
+
+  overflow-wrap: anywhere;
+}
+
+.suscripcion-precio-texto {
+  padding-bottom: 6px;
+
+  color:
+    var(--color-text-muted);
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/*
+|--------------------------------------------------------------------------
+| AVISO DE SIMULACIÓN
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-aviso-simulacion {
+  margin:
+    16px 0 24px;
+
+  padding:
+    13px 15px;
+
+  border:
+    1px solid
+    var(--color-warning);
+
+  border-radius:
+    var(--radius-md);
+
+  background:
+    var(--color-warning-bg);
+
+  color:
+    var(--color-warning);
+
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/*
+|--------------------------------------------------------------------------
+| INFORMACIÓN DEL USUARIO
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-usuario {
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  min-width: 0;
+
+  padding: 17px;
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius:
+    var(--radius-lg);
+
+  background:
+    var(--color-surface-muted);
+}
+
+.suscripcion-avatar {
+  display: grid;
+
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  background:
+    var(--color-accent-soft);
+
+  color:
+    var(--color-accent);
+
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.suscripcion-usuario div:last-child {
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+}
+
+.suscripcion-usuario small {
+  color:
+    var(--color-text-muted);
+
+  font-size: 12px;
+}
+
+.suscripcion-usuario strong {
+  margin-top: 2px;
+
+  color:
+    var(--color-text);
+
+  font-size: 15px;
+
+  overflow-wrap: anywhere;
+}
+
+.suscripcion-usuario span {
+  max-width: 100%;
+
+  margin-top: 2px;
+
+  overflow: hidden;
+
+  color:
+    var(--color-text-muted);
+
+  font-size: 13px;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/*
+|--------------------------------------------------------------------------
+| ESTADO DE LA SUSCRIPCIÓN
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-estado {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  min-width: 0;
+
+  margin-top: 17px;
+
+  padding: 15px 17px;
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius:
+    var(--radius-lg);
+
+  background:
+    var(--color-surface-muted);
+
+  color:
+    var(--color-text-muted);
+
+  font-size: 14px;
+}
+
+.suscripcion-estado strong {
+  flex: 0 0 auto;
+
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  font-size: 12px;
+
+  text-transform: uppercase;
+}
+
+.suscripcion-estado-free {
+  background:
+    var(--color-secondary-soft);
+
+  color:
+    var(--color-text-muted);
+}
+
+.suscripcion-estado-premium {
+  background:
+    var(--color-success-bg);
+
+  color:
+    var(--color-success);
+}
+
+/*
+|--------------------------------------------------------------------------
+| BENEFICIOS PREMIUM
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-beneficios {
+  padding:
+    clamp(
+      21px,
+      2.5vw,
+      30px
+    );
+}
+
+.suscripcion-beneficios-encabezado {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 13px;
+
+  min-width: 0;
+
+  padding-bottom: 21px;
+
+  border-bottom:
+    1px solid
+    var(--color-border);
+}
+
+.suscripcion-beneficios-encabezado > span {
+  display: grid;
+
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  width: 45px;
+  height: 45px;
+
+  border-radius:
+    var(--radius-lg);
+
+  background:
+    var(--color-accent-soft);
+
+  font-size: 21px;
+}
+
+.suscripcion-beneficios-encabezado > div {
+  min-width: 0;
+}
+
+.suscripcion-beneficios h2 {
+  margin: 0;
+
+  color:
+    var(--color-text);
+
+  font-size:
+    clamp(
+      1.3rem,
+      3vw,
+      1.55rem
+    );
+
+  overflow-wrap: anywhere;
+}
+
+.suscripcion-beneficios-encabezado p {
+  margin:
+    5px 0 0;
+
+  color:
+    var(--color-text-muted);
+
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/*
+|--------------------------------------------------------------------------
+| LISTA DE BENEFICIOS
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-lista-beneficios {
+  display: grid;
+
+  gap: 15px;
+
+  margin:
+    24px 0;
+
+  padding: 0;
+
+  list-style: none;
+}
+
+.suscripcion-lista-beneficios li {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 13px;
+
+  min-width: 0;
+
+  padding: 16px;
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius:
+    var(--radius-lg);
+
+  background:
+    var(--color-surface-muted);
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.suscripcion-lista-beneficios li:hover {
+  transform:
+    translateY(-1px);
+
+  border-color:
+    var(--color-accent-light);
+
+  background:
+    var(--color-accent-soft);
+}
+
+.suscripcion-lista-beneficios li > span {
+  display: grid;
+
+  place-items: center;
+
+  flex: 0 0 auto;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+
+  background:
+    var(--color-success-bg);
+
+  color:
+    var(--color-success);
+
+  font-weight: 900;
+}
+
+.suscripcion-lista-beneficios li > div {
+  min-width: 0;
+}
+
+.suscripcion-lista-beneficios strong {
+  color:
+    var(--color-text);
+
+  font-size: 15px;
+
+  overflow-wrap: anywhere;
+}
+
+.suscripcion-lista-beneficios p {
+  margin:
+    5px 0 0;
+
+  color:
+    var(--color-text-muted);
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+/*
+|--------------------------------------------------------------------------
+| MENSAJES
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-mensaje {
+  margin:
+    18px 0;
+
+  padding:
+    15px 17px;
+
+  border-radius:
+    var(--radius-lg);
+}
+
+.suscripcion-mensaje strong {
+  display: block;
+
+  margin-bottom: 4px;
+
+  font-size: 14px;
+}
+
+.suscripcion-mensaje p {
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.5;
+
+  overflow-wrap: anywhere;
+}
+
+.suscripcion-mensaje-error {
+  border:
+    1px solid
+    var(--color-error);
+
+  background:
+    var(--color-error-bg);
+
+  color:
+    var(--color-error);
+}
+
+.suscripcion-mensaje-exito {
+  border:
+    1px solid
+    var(--color-success);
+
+  background:
+    var(--color-success-bg);
+
+  color:
+    var(--color-success);
+}
+
+/*
+|--------------------------------------------------------------------------
+| BOTONES
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-acciones {
+  display: grid;
+
+  gap: 11px;
+
+  margin-top: 24px;
+}
+
+.suscripcion-boton-principal,
+.suscripcion-boton-secundario {
+  width: 100%;
+  min-width: 0;
+  min-height: 49px;
+
+  padding:
+    13px 18px;
+
+  border-radius:
+    var(--radius-lg);
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.suscripcion-boton-principal {
+  border:
+    1px solid transparent;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--color-accent),
+      var(--color-secondary)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 12px 25px
+    var(--color-shadow);
+}
+
+.suscripcion-boton-secundario {
+  border:
+    1px solid
+    var(--color-border);
+
+  background:
+    var(--color-surface-muted);
+
+  color:
+    var(--color-text);
+}
+
+.suscripcion-boton-principal:hover:not(:disabled),
+.suscripcion-boton-secundario:hover:not(:disabled) {
+  transform:
+    translateY(-2px);
+}
+
+.suscripcion-boton-principal:hover:not(:disabled) {
+  box-shadow:
+    0 16px 30px
+    var(--color-shadow);
+}
+
+.suscripcion-boton-secundario:hover:not(:disabled) {
+  border-color:
+    var(--color-accent-light);
+
+  background:
+    var(--color-accent-soft);
+
+  color:
+    var(--color-accent-hover);
+}
+
+.suscripcion-boton-principal:focus-visible,
+.suscripcion-boton-secundario:focus-visible {
+  outline:
+    3px solid
+    var(--color-accent-soft);
+
+  outline-offset: 3px;
+}
+
+.suscripcion-boton-principal:disabled,
+.suscripcion-boton-secundario:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.65;
+
+  transform: none;
+}
+
+/*
+|--------------------------------------------------------------------------
+| MÉTODO DE PAGO
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-pago {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+  padding: 18px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-muted);
+}
+
+.suscripcion-pago-encabezado h3 {
+  margin: 0;
+  color: var(--color-text);
+  font-size: 1.05rem;
+}
+
+.suscripcion-pago-encabezado p {
+  margin: 6px 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.suscripcion-pago-campo {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.suscripcion-pago-campo label {
+  color: var(--color-text);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.suscripcion-pago-campo input {
+  width: 100%;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.suscripcion-pago-campo input:focus {
+  outline: 3px solid var(--color-accent-soft);
+  border-color: var(--color-accent);
+}
+
+.suscripcion-pago-fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.suscripcion-pago-error {
+  color: var(--color-error);
+  font-size: 0.78rem;
+}
+
+/*
+|--------------------------------------------------------------------------
+| SEGURIDAD
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-seguridad {
+  margin:
+    16px 0 0;
+
+  color:
+    var(--color-text-muted);
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+/*
+|--------------------------------------------------------------------------
+| ERROR DE SESIÓN
+|--------------------------------------------------------------------------
+*/
+
+.suscripcion-error-sesion {
+  width:
+    min(
+      520px,
+      100%
+    );
+
+  margin:
+    clamp(
+      35px,
+      8vh,
+      80px
+    )
+    auto;
+
+  padding:
+    clamp(
+      25px,
+      5vw,
+      40px
+    );
+
+  border:
+    1px solid
+    var(--color-border);
+
+  border-radius:
+    var(--radius-xl);
+
+  background:
+    var(--color-surface);
+
+  color:
+    var(--color-text);
+
+  text-align: center;
+
+  box-shadow:
+    0 25px 60px
+    var(--color-shadow);
+}
+
+.suscripcion-error-icono {
+  display: grid;
+
+  place-items: center;
+
+  width: 70px;
+  height: 70px;
+
+  margin:
+    0 auto 18px;
+
+  border-radius: 50%;
+
+  background:
+    var(--color-warning-bg);
+
+  color:
+    var(--color-warning);
+
+  font-size: 31px;
+}
+
+.suscripcion-error-sesion h1 {
+  margin: 0;
+
+  color:
+    var(--color-text);
+
+  font-size:
+    clamp(
+      1.5rem,
+      5vw,
+      1.8rem
+    );
+}
+
+.suscripcion-error-sesion p {
+  margin:
+    12px 0 24px;
+
+  color:
+    var(--color-text-muted);
+
+  line-height: 1.6;
+}
+
+/*
+|--------------------------------------------------------------------------
+| TABLET
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 1000px) {
+  .suscripcion-contenedor {
+    width:
+      min(
+        760px,
+        100%
+      );
+  }
+
+  .suscripcion-columnas {
+    grid-template-columns: 1fr;
+  }
+
+  .suscripcion-plan,
+  .suscripcion-beneficios {
+    width: 100%;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| TELÉFONOS Y TABLETS PEQUEÑAS
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 768px) {
+  .suscripcion-pagina {
+    padding:
+      18px 12px
+      calc(
+        22px +
+        env(safe-area-inset-bottom)
+      );
+  }
+
+  .suscripcion-encabezado {
+    gap: 12px;
+
+    margin-bottom: 21px;
+  }
+
+  .suscripcion-volver {
+    width: 42px;
+    height: 42px;
+
+    border-radius:
+      var(--radius-md);
+
+    font-size: 22px;
+  }
+
+  .suscripcion-encabezado h1 {
+    font-size:
+      clamp(
+        1.8rem,
+        8vw,
+        2.35rem
+      );
+  }
+
+  .suscripcion-encabezado p {
+    margin-top: 9px;
+  }
+
+  .suscripcion-columnas {
+    gap: 18px;
+  }
+
+  .suscripcion-plan,
+  .suscripcion-beneficios {
+    border-radius:
+      var(--radius-xl);
+  }
+
+  .suscripcion-plan {
+    padding: 21px;
+  }
+
+  .suscripcion-beneficios {
+    padding: 21px;
+  }
+
+  .suscripcion-precio {
+    margin-top: 27px;
+  }
+
+  .suscripcion-pago {
+    padding: 16px;
+  }
+
+  .suscripcion-pago-fila {
+    grid-template-columns: 1fr;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| TELÉFONOS
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 560px) {
+  .suscripcion-pagina {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .suscripcion-encabezado {
+    display: grid;
+
+    grid-template-columns:
+      42px minmax(0, 1fr);
+
+    align-items: start;
+  }
+
+  .suscripcion-etiqueta {
+    padding:
+      6px 10px;
+
+    font-size: 11px;
+  }
+
+  .suscripcion-plan-superior {
+    align-items: flex-start;
+  }
+
+  .suscripcion-icono-premium {
+    width: 51px;
+    height: 51px;
+
+    border-radius:
+      var(--radius-md);
+
+    font-size: 24px;
+  }
+
+  .suscripcion-precio {
+    padding: 19px;
+  }
+
+  .suscripcion-usuario {
+    align-items: flex-start;
+
+    padding: 15px;
+  }
+
+  .suscripcion-usuario span {
+    white-space: normal;
+
+    overflow-wrap: anywhere;
+  }
+
+  .suscripcion-estado {
+    align-items: flex-start;
+
+    padding: 14px 15px;
+  }
+
+  .suscripcion-beneficios-encabezado {
+    gap: 11px;
+  }
+
+  .suscripcion-beneficios-encabezado > span {
+    width: 40px;
+    height: 40px;
+
+    border-radius:
+      var(--radius-md);
+
+    font-size: 18px;
+  }
+
+  .suscripcion-lista-beneficios {
+    gap: 11px;
+
+    margin:
+      20px 0;
+  }
+
+  .suscripcion-lista-beneficios li {
+    gap: 11px;
+
+    padding: 14px;
+  }
+
+  .suscripcion-boton-principal,
+  .suscripcion-boton-secundario {
+    min-height: 47px;
+
+    padding:
+      12px 14px;
+
+    border-radius:
+      var(--radius-md);
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| TELÉFONOS MUY PEQUEÑOS
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 390px) {
+  .suscripcion-pagina {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  .suscripcion-encabezado {
+    grid-template-columns:
+      38px minmax(0, 1fr);
+
+    gap: 10px;
+  }
+
+  .suscripcion-volver {
+    width: 38px;
+    height: 38px;
+
+    font-size: 20px;
+  }
+
+  .suscripcion-plan,
+  .suscripcion-beneficios {
+    padding: 17px;
+  }
+
+  .suscripcion-precio {
+    gap: 6px;
+
+    padding: 16px;
+  }
+
+  .suscripcion-precio-simbolo {
+    font-size: 2.35rem;
+  }
+
+  .suscripcion-precio-texto {
+    padding-bottom: 3px;
+  }
+
+  .suscripcion-avatar {
+    width: 43px;
+    height: 43px;
+
+    font-size: 18px;
+  }
+
+  .suscripcion-lista-beneficios li > span {
+    width: 27px;
+    height: 27px;
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| REDUCCIÓN DE ANIMACIONES
+|--------------------------------------------------------------------------
+*/
+
+@media (prefers-reduced-motion: reduce) {
+  .suscripcion-pagina,
+  .suscripcion-plan,
+  .suscripcion-beneficios,
+  .suscripcion-volver,
+  .suscripcion-lista-beneficios li,
+  .suscripcion-boton-principal,
+  .suscripcion-boton-secundario {
+    transition: none;
+  }
+}

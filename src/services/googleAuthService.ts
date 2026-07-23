@@ -3,7 +3,7 @@ import {
   mensajeErrorRed
 } from '../config/api'
 import { parseJsonResponse } from '../config/parseJsonResponse'
-import { aplicarTema } from './themeService'
+import { restaurarTemaUsuario } from './themeService'
 import {
   guardarUsuarioSesion
 } from '../utils/sesionUsuario'
@@ -43,8 +43,24 @@ export async function loginGoogle(
 export function guardarSesion(
   data: Record<string, unknown>
 ) {
-  const { success: _s, mensaje: _m, ...usuario } = data
+  const { success: _s, mensaje: _m, ...resto } = data
+
+  const usuario = {
+    ...resto,
+    estado_suscripcion: String(
+      resto.estado_suscripcion || 'free'
+    )
+      .trim()
+      .toLowerCase()
+  }
+
   guardarUsuarioSesion(usuario)
-  aplicarTema('dark')
+
+  const idUsuario = Number(usuario.id_usuario)
+
+  if (Number.isInteger(idUsuario) && idUsuario > 0) {
+    restaurarTemaUsuario(idUsuario)
+  }
+
   window.location.href = '/dashboard/inicio'
 }

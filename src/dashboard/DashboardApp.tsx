@@ -1,207 +1,255 @@
 import {
-
-  Routes,
-
+  Navigate,
   Route,
-
-  Navigate
-
+  Routes,
+  useLocation,
+  useNavigate
 } from 'react-router-dom'
 
 import SidebarNav from '../components/SidebarNav'
 
-import { sembrarDatosDemo } from '../services/seedDemoData'
+import {
+  sembrarDatosDemo
+} from '../services/seedDemoData'
+
+import {
+  aplicarTemaVisual
+} from '../services/themeService'
 
 import Datos from './Datos'
 
 import EjerciciosEstres from '../ejercicios/EjerciciosEstres'
 
+import Meditacion from './meditacion/Meditacion'
+
+import type {
+  VistaMeditacion
+} from '../functions/meditacionF/meditacionTypes'
+
 import EstadoAnimo from '../estadoAnimo/EstadoAnimo'
 
 import HistorialPage from '../historial/HistorialPage'
 
-import Perfil from '../perfil/Perfil'
+import OrganizarPrioridades from './organizar/OrganizarPrioridades'
+
+import Recordatorios from './recordatorios/Recordatorios'
+
+import Suscripcion from './suscripcion/Suscripcion'
 
 import ChatPage from '../chat/ChatPage'
 
+import Perfil from '../perfil/Perfil'
+
+import {
+  SonidosRelajantes
+} from '../sonidosRelajantes/sonidosRelajantes'
+
 import './Dashboard.css'
 import '../styles/app-ui.css'
-import SonidosRelajantes from '../sonidosRelajantes/sonidosRelajantes'
-
-
 
 function DashboardApp() {
+  const navigate =
+    useNavigate()
+
+  const location =
+    useLocation()
 
   try {
     const usuario = JSON.parse(
-      localStorage.getItem('usuario') || 'null'
-    ) as { id_usuario?: number } | null
+      localStorage.getItem(
+        'usuario'
+      ) || 'null'
+    ) as {
+      id_usuario?: number
+    } | null
 
-    if (usuario?.id_usuario) {
-      sembrarDatosDemo(usuario.id_usuario)
+    if (
+      usuario?.id_usuario
+    ) {
+      sembrarDatosDemo(
+        usuario.id_usuario
+      )
     }
   } catch {
-    /* ignorar */
+    /*
+     * Ignorar datos inválidos
+     * de la sesión.
+     */
   }
 
   const cerrarSesion = () => {
-
-
-
     localStorage.removeItem(
-
       'usuario'
-
     )
 
+    aplicarTemaVisual('serenia')
 
-
-    window.location.href =
-
-      '/'
-
-
-
+    window.location.href = '/'
   }
 
+  const abrirSuscripcion = (
+    vistaMeditacion?: VistaMeditacion
+  ) => {
+    navigate(
+      '/dashboard/suscripcion',
+      {
+        state: {
+          volverA:
+            location.pathname,
+          vistaMeditacion
+        }
+      }
+    )
+  }
 
+  const volverDesdeSuscripcion = () => {
+    const estadoNavegacion =
+      location.state as {
+        volverA?: string
+        vistaMeditacion?:
+          VistaMeditacion
+      } | null
+
+    const volverA =
+      estadoNavegacion
+        ?.volverA
+        ?.startsWith(
+          '/dashboard/'
+        )
+        ? estadoNavegacion.volverA
+        : '/dashboard/inicio'
+
+    navigate(
+      volverA,
+      {
+        replace: true,
+        state:
+          estadoNavegacion
+            ?.vistaMeditacion
+            ? {
+              vistaMeditacion:
+                estadoNavegacion
+                  .vistaMeditacion
+            }
+            : null
+      }
+    )
+  }
 
   return (
-
-
-
     <div className="dashboard-layout">
-
-
-
       <SidebarNav
-
         onLogout={cerrarSesion}
-
       />
 
-
-
       <main className="dashboard-main">
-
-
-
         <Routes>
-
-
-
           <Route
-
             index
-
             element={
-
               <Navigate
-
                 to="inicio"
-
                 replace
-
               />
-
             }
-
           />
 
-
-
           <Route
-
             path="inicio"
-
-            element={<Datos />}
-
-          />
-
-
-
-          <Route
-
-            path="ejercicios"
-
             element={
-
-              <EjerciciosEstres />
-
+              <Datos />
             }
-
           />
 
-
+          <Route
+            path="ejercicios"
+            element={
+              <EjerciciosEstres />
+            }
+          />
 
           <Route
+            path="meditacion"
+            element={
+              <Meditacion
+                onIrSuscripcion={
+                  abrirSuscripcion
+                }
+              />
+            }
+          />
 
+          <Route
             path="estado-animo"
-
-            element={<EstadoAnimo />}
-
+            element={
+              <EstadoAnimo />
+            }
           />
 
-
-
           <Route
-
             path="historial"
-
-            element={<HistorialPage />}
-
+            element={
+              <HistorialPage />
+            }
           />
 
-
+          <Route
+            path="organizar-prioridades"
+            element={
+              <OrganizarPrioridades
+                onIrSuscripcion={
+                  abrirSuscripcion
+                }
+              />
+            }
+          />
 
           <Route
+            path="recordatorios"
+            element={
+              <Recordatorios
+                onIrSuscripcion={
+                  abrirSuscripcion
+                }
+              />
+            }
+          />
 
+          <Route
+            path="suscripcion"
+            element={
+              <Suscripcion
+                onVolver={
+                  volverDesdeSuscripcion
+                }
+              />
+            }
+          />
+
+          <Route
             path="asistente"
-
-            element={<ChatPage />}
-
+            element={
+              <ChatPage />
+            }
           />
-
-
 
           <Route
-
             path="perfil"
-
-            element={<Perfil />}
-
+            element={
+              <Perfil />
+            }
           />
 
-
-          <Route 
-            path="sonidos-relajantes" 
-            
-            element={<SonidosRelajantes />} 
-            
+          <Route
+            path="sonidos-relajantes"
+            element={
+              <SonidosRelajantes />
+            }
           />
-
-
-
         </Routes>
-
-
-
       </main>
-
-
-
     </div>
-
-
-
   )
-
-
-
 }
 
-
-
 export default DashboardApp
-
-

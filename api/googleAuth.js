@@ -38,6 +38,23 @@ export async function verificarTokenGoogle(
 
 }
 
+function respuestaSesionGoogle(
+  usuario,
+  mensaje
+) {
+  return {
+    success: 1,
+    mensaje,
+    id_usuario: usuario.id_usuario,
+    nombre: usuario.nombre,
+    email: usuario.email,
+    estado_suscripcion:
+      usuario.estado_suscripcion || 'free',
+    fecha_nacimiento: usuario.fecha_nacimiento,
+    fecha_registro: usuario.fecha_registro
+  }
+}
+
 export async function loginORegistrarGoogle(
   pool,
   datosGoogle
@@ -48,7 +65,13 @@ export async function loginORegistrarGoogle(
   const emailNorm = email.trim().toLowerCase()
 
   const [existentes] = await pool.query(
-    `SELECT id_usuario, nombre, email, fecha_nacimiento, fecha_registro
+    `SELECT
+        id_usuario,
+        nombre,
+        email,
+        estado_suscripcion,
+        fecha_nacimiento,
+        fecha_registro
      FROM usuarios
      WHERE LOWER(TRIM(email)) = ?
      LIMIT 1`,
@@ -56,17 +79,10 @@ export async function loginORegistrarGoogle(
   )
 
   if (existentes.length > 0) {
-    const usuario = existentes[0]
-
-    return {
-      success: 1,
-      mensaje: 'Inicio de sesión exitoso',
-      id_usuario: usuario.id_usuario,
-      nombre: usuario.nombre,
-      email: usuario.email,
-      fecha_nacimiento: usuario.fecha_nacimiento,
-      fecha_registro: usuario.fecha_registro
-    }
+    return respuestaSesionGoogle(
+      existentes[0],
+      'Inicio de sesión exitoso'
+    )
   }
 
   const fechaDefault = '2000-01-01'
@@ -82,7 +98,13 @@ export async function loginORegistrarGoogle(
 
   if (respuesta.success === 0) {
     const [reintento] = await pool.query(
-      `SELECT id_usuario, nombre, email, fecha_nacimiento, fecha_registro
+      `SELECT
+          id_usuario,
+          nombre,
+          email,
+          estado_suscripcion,
+          fecha_nacimiento,
+          fecha_registro
        FROM usuarios
        WHERE LOWER(TRIM(email)) = ?
        LIMIT 1`,
@@ -90,20 +112,34 @@ export async function loginORegistrarGoogle(
     )
 
     if (reintento.length > 0) {
-      const usuario = reintento[0]
-
-      return {
-        success: 1,
-        mensaje: 'Inicio de sesión exitoso',
-        id_usuario: usuario.id_usuario,
-        nombre: usuario.nombre,
-        email: usuario.email,
-        fecha_nacimiento: usuario.fecha_nacimiento,
-        fecha_registro: usuario.fecha_registro
-      }
+      return respuestaSesionGoogle(
+        reintento[0],
+        'Inicio de sesión exitoso'
+      )
     }
 
     return respuesta
+  }
+
+  const [creado] = await pool.query(
+    `SELECT
+        id_usuario,
+        nombre,
+        email,
+        estado_suscripcion,
+        fecha_nacimiento,
+        fecha_registro
+     FROM usuarios
+     WHERE id_usuario = ?
+     LIMIT 1`,
+    [respuesta.id_usuario]
+  )
+
+  if (creado.length > 0) {
+    return respuestaSesionGoogle(
+      creado[0],
+      'Cuenta creada con Google'
+    )
   }
 
   return {
@@ -112,6 +148,7 @@ export async function loginORegistrarGoogle(
     id_usuario: respuesta.id_usuario,
     nombre,
     email,
+    estado_suscripcion: 'free',
     fecha_nacimiento: fechaDefault,
     fecha_registro: new Date().toISOString()
   }

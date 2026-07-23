@@ -55,18 +55,6 @@ export function LoginForm({
 
       <form onSubmit={handleSubmit}>
 
-        {tieneGoogle && (
-          <>
-            <GoogleLoginButton
-              onError={setErrorGoogle}
-              disabled={cargando}
-            />
-            <div className="auth-divider landing-divider">
-              o con tu correo
-            </div>
-          </>
-        )}
-
         <div className="auth-field">
           <label htmlFor="correo">
             Correo electrónico
@@ -89,12 +77,16 @@ export function LoginForm({
             onBlur={validarEmailCampo}
           />
           {errores.email && (
-            <p className="auth-error">{errores.email}</p>
+            <p className="auth-error">
+              {errores.email}
+            </p>
           )}
         </div>
 
         <div className="auth-field">
-          <label htmlFor="password">Contraseña</label>
+          <label htmlFor="password">
+            Contraseña
+          </label>
           <input
             id="password"
             type="password"
@@ -140,6 +132,19 @@ export function LoginForm({
             ? 'Iniciando sesión...'
             : 'Entrar'}
         </button>
+
+        {tieneGoogle && (
+          <div className="auth-google-section">
+            <div className="auth-divider landing-divider">
+              o continúa con Google
+            </div>
+
+            <GoogleLoginButton
+              onError={setErrorGoogle}
+              disabled={cargando}
+            />
+          </div>
+        )}
 
         <p className="auth-footer landing-footer">
           ¿No tienes cuenta?

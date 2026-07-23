@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { login } from '../../services/authService'
-import { aplicarTema } from '../../services/themeService'
+import { restaurarTemaUsuario } from '../../services/themeService'
 import {
   guardarUsuarioSesion
 } from '../../utils/sesionUsuario'
@@ -75,6 +75,7 @@ export function loginFunctions() {
         id_usuario: number
         nombre: string
         email: string
+        estado_suscripcion?: string
         fecha_nacimiento: string
         fecha_registro: string
       }
@@ -87,7 +88,7 @@ export function loginFunctions() {
         } = data
 
         guardarUsuarioSesion(usuario)
-        aplicarTema('dark')
+        restaurarTemaUsuario(usuario.id_usuario)
 
         window.location.href =
           '/dashboard/inicio'

@@ -1,0 +1,2591 @@
+/*
+|--------------------------------------------------------------------------
+| BASE Y VARIABLES DEL MÓDULO
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page,
+.recordatorios-page * {
+  box-sizing: border-box;
+}
+
+.recordatorios-page {
+  --recordatorios-fondo:
+    var(--color-bg, #f3fbf8);
+
+  --recordatorios-superficie:
+    var(--color-surface, #ffffff);
+
+  --recordatorios-superficie-muted:
+    var(--color-surface-muted, #f0f5f3);
+
+  --recordatorios-texto:
+    var(--color-text, #172d32);
+
+  --recordatorios-texto-muted:
+    var(--color-text-muted, #667085);
+
+  --recordatorios-borde:
+    var(--color-border, #d9e8e6);
+
+  --recordatorios-acento:
+    var(--color-accent, #4ead92);
+
+  --recordatorios-acento-hover:
+    var(--color-accent-hover, #2f9b78);
+
+  --recordatorios-acento-claro:
+    var(--color-accent-light, #7bc8a4);
+
+  --recordatorios-acento-soft:
+    var(
+      --color-accent-soft,
+      rgba(78, 173, 146, 0.14)
+    );
+
+  --recordatorios-secundario:
+    var(--color-secondary, #67aee9);
+
+  --recordatorios-secundario-soft:
+    var(
+      --color-secondary-soft,
+      rgba(103, 174, 233, 0.14)
+    );
+
+  --recordatorios-info-fondo:
+    var(--color-info-bg, #dff1ff);
+
+  --recordatorios-info-texto:
+    var(--color-info-text, #0369a1);
+
+  --recordatorios-exito:
+    var(--color-success, #15803d);
+
+  --recordatorios-exito-fondo:
+    var(--color-success-bg, #dcfce7);
+
+  --recordatorios-advertencia:
+    var(--color-warning, #b45309);
+
+  --recordatorios-advertencia-fondo:
+    var(--color-warning-bg, #fef3c7);
+
+  --recordatorios-error:
+    var(--color-error, #dc2626);
+
+  --recordatorios-error-fondo:
+    var(--color-error-bg, #fef2f2);
+
+  --recordatorios-peligro-texto:
+    var(--color-danger-text, #b91c1c);
+
+  --recordatorios-sombra:
+    var(
+      --color-shadow,
+      rgba(55, 99, 92, 0.13)
+    );
+
+  width: 100%;
+  min-height: 100vh;
+
+  color:
+    var(--recordatorios-texto);
+
+  font-family:
+    var(
+      --font-family,
+      Arial,
+      Helvetica,
+      sans-serif
+    );
+
+  background:
+    radial-gradient(
+      circle at top right,
+      var(--recordatorios-secundario-soft),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at bottom left,
+      var(--recordatorios-acento-soft),
+      transparent 38%
+    ),
+    var(--recordatorios-fondo);
+
+  transition:
+    var(
+      --theme-transition,
+      background-color 0.4s ease,
+      color 0.3s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease
+    );
+}
+
+html[data-theme="dark"]
+.recordatorios-page {
+  color-scheme: dark;
+}
+
+html[data-theme="serenia"]
+.recordatorios-page,
+html[data-theme="ocean"]
+.recordatorios-page,
+html[data-theme="sunset"]
+.recordatorios-page,
+html[data-theme="forest"]
+.recordatorios-page {
+  color-scheme: light;
+}
+
+.recordatorios-page button,
+.recordatorios-page input,
+.recordatorios-page textarea,
+.recordatorios-page select {
+  font-family: inherit;
+}
+
+/*
+|--------------------------------------------------------------------------
+| CONTENEDOR PRINCIPAL
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page .app {
+  width: 100%;
+  min-height: 100vh;
+
+  padding:
+    28px 18px 96px;
+}
+
+.recordatorios-page .contenido {
+  width: 100%;
+  max-width: 880px;
+
+  margin: 0 auto;
+}
+
+.recordatorios-page .panel {
+  padding: 28px;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius:
+    var(--radius-xl, 24px);
+
+  background:
+    var(--recordatorios-superficie);
+
+  color:
+    var(--recordatorios-texto);
+
+  box-shadow:
+    0 18px 45px
+    var(--recordatorios-sombra);
+
+  transition:
+    var(
+      --theme-transition,
+      background-color 0.4s ease,
+      color 0.3s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease
+    );
+}
+
+/*
+|--------------------------------------------------------------------------
+| ENCABEZADO ADAPTABLE A TODOS LOS TEMAS
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.recordatorios-encabezado {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  min-height: 142px;
+
+  margin: 0 0 22px;
+  padding: 24px 26px;
+
+  gap: 24px;
+
+  border:
+    1px solid
+    color-mix(
+      in srgb,
+      var(--recordatorios-acento) 32%,
+      var(--recordatorios-borde)
+    );
+
+  border-radius:
+    var(--radius-xl, 20px);
+
+  /*
+   * Fondo de respaldo para navegadores
+   * que no soportan color-mix.
+   */
+  background:
+    var(--recordatorios-superficie-muted);
+
+  /*
+   * Los colores cambian automáticamente
+   * según las variables del tema activo.
+   */
+  background:
+    linear-gradient(
+      115deg,
+      color-mix(
+        in srgb,
+        var(--recordatorios-acento) 16%,
+        var(--recordatorios-superficie)
+      ),
+      color-mix(
+        in srgb,
+        var(--recordatorios-secundario) 13%,
+        var(--recordatorios-superficie)
+      )
+    );
+
+  color:
+    var(--recordatorios-texto);
+
+  box-shadow:
+    0 12px 28px
+    var(--recordatorios-sombra);
+
+  overflow: hidden;
+
+  transition:
+    var(
+      --theme-transition,
+      background-color 0.4s ease,
+      color 0.3s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease
+    );
+}
+
+/*
+|--------------------------------------------------------------------------
+| CÍRCULOS DECORATIVOS DEL ENCABEZADO
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.recordatorios-encabezado::before {
+  content: '';
+
+  position: absolute;
+  top: -105px;
+  right: 120px;
+
+  width: 230px;
+  height: 230px;
+
+  border-radius: 50%;
+
+  /*
+   * Se adapta al color principal
+   * del tema seleccionado.
+   */
+  background:
+    var(--recordatorios-acento-soft);
+
+  opacity: 0.58;
+
+  pointer-events: none;
+
+  transition:
+    background-color 0.4s ease,
+    opacity 0.3s ease;
+}
+
+.recordatorios-page
+.recordatorios-encabezado::after {
+  content: '';
+
+  position: absolute;
+  right: -65px;
+  bottom: -115px;
+
+  width: 260px;
+  height: 260px;
+
+  border-radius: 50%;
+
+  /*
+   * Se adapta al color secundario
+   * del tema seleccionado.
+   */
+  background:
+    var(--recordatorios-secundario-soft);
+
+  opacity: 0.62;
+
+  pointer-events: none;
+
+  transition:
+    background-color 0.4s ease,
+    opacity 0.3s ease;
+}
+
+/*
+|--------------------------------------------------------------------------
+| TEXTO DEL ENCABEZADO
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.recordatorios-encabezado-texto {
+  position: relative;
+  z-index: 2;
+
+  flex: 1;
+  min-width: 0;
+}
+
+.recordatorios-page
+.recordatorios-sobretitulo {
+  display: block;
+
+  margin: 0 0 8px;
+
+  color:
+    var(--recordatorios-acento);
+
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: 1.4px;
+
+  text-transform: uppercase;
+
+  transition:
+    color 0.3s ease;
+}
+
+.recordatorios-page
+.recordatorios-encabezado h1 {
+  margin: 0;
+
+  color:
+    var(--recordatorios-texto);
+
+  font-size:
+    clamp(
+      25px,
+      3vw,
+      34px
+    );
+
+  font-weight: 800;
+  line-height: 1.18;
+
+  transition:
+    color 0.3s ease;
+}
+
+.recordatorios-page
+.recordatorios-encabezado p {
+  max-width: 650px;
+
+  margin: 10px 0 0;
+
+  color:
+    var(--recordatorios-texto-muted);
+
+  font-size: 14px;
+  line-height: 1.5;
+
+  transition:
+    color 0.3s ease;
+}
+
+/*
+|--------------------------------------------------------------------------
+| TARJETA DEL PLAN
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.recordatorios-plan {
+  position: relative;
+  z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  flex: 0 0 105px;
+
+  width: 105px;
+  min-width: 105px;
+  min-height: 70px;
+
+  margin: 0;
+  padding: 12px;
+
+  border:
+    1px solid
+    color-mix(
+      in srgb,
+      var(--recordatorios-acento) 28%,
+      var(--recordatorios-borde)
+    );
+
+  border-radius:
+    var(--radius-lg, 16px);
+
+  background:
+    color-mix(
+      in srgb,
+      var(--recordatorios-superficie) 90%,
+      var(--recordatorios-acento) 10%
+    );
+
+  color:
+    var(--recordatorios-texto);
+
+  box-shadow:
+    0 8px 18px
+    var(--recordatorios-sombra);
+
+  text-align: center;
+
+  transition:
+    var(
+      --theme-transition,
+      background-color 0.4s ease,
+      color 0.3s ease,
+      border-color 0.4s ease,
+      box-shadow 0.4s ease
+    );
+}
+
+.recordatorios-page
+.recordatorios-plan span {
+  display: block;
+
+  margin: 0 0 5px;
+
+  color:
+    var(--recordatorios-texto-muted);
+
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 1.4px;
+
+  text-transform: uppercase;
+}
+
+.recordatorios-page
+.recordatorios-plan strong {
+  display: block;
+
+  margin: 0;
+
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.recordatorios-page
+.recordatorios-plan-free strong {
+  color:
+    var(--recordatorios-acento);
+}
+
+.recordatorios-page
+.recordatorios-plan-premium strong {
+  color:
+    var(--recordatorios-advertencia);
+}
+
+/*
+|--------------------------------------------------------------------------
+| RESUMEN
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page .resumen {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.recordatorios-page .resumen-card {
+  padding: 16px;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius:
+    var(--radius-lg, 18px);
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  color:
+    var(--recordatorios-texto);
+
+  box-shadow:
+    0 7px 18px
+    var(--recordatorios-sombra);
+
+  transition:
+    transform 0.25s ease,
+    background-color 0.4s ease,
+    color 0.3s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.recordatorios-page
+.resumen-card:hover {
+  transform:
+    translateY(-2px);
+
+  border-color:
+    var(--recordatorios-acento);
+}
+
+.recordatorios-page
+.resumen-card small {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color:
+    var(--recordatorios-texto-muted);
+
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.recordatorios-page
+.resumen-card strong {
+  color:
+    var(--recordatorios-acento);
+
+  font-size: 24px;
+}
+
+.recordatorios-page
+.resumen-card
+.resumen-proximo {
+  font-size: 18px;
+  line-height: 1.25;
+}
+
+/*
+|--------------------------------------------------------------------------
+| BOTONES GENERALES DEL MÓDULO
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page button {
+  padding: 12px 18px;
+
+  border: none;
+
+  border-radius:
+    var(--radius-md, 14px);
+
+  font-size: 14px;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.22s ease,
+    opacity 0.22s ease,
+    filter 0.22s ease,
+    background-color 0.4s ease,
+    color 0.3s ease,
+    border-color 0.4s ease,
+    box-shadow 0.25s ease;
+}
+
+.recordatorios-page
+button:hover:not(:disabled) {
+  transform:
+    translateY(-1px);
+
+  filter:
+    brightness(0.98);
+}
+
+.recordatorios-page
+button:disabled {
+  opacity: 0.55;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+.recordatorios-page
+.barra-acciones {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  gap: 12px;
+  flex-wrap: wrap;
+
+  margin-bottom: 20px;
+}
+
+.recordatorios-page
+.barra-acciones
+.btn-principal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: auto;
+  max-width: max-content;
+
+  margin-left: auto;
+  padding: 11px 18px;
+}
+
+.recordatorios-page
+.btn-principal,
+.recordatorios-page
+.btn-guardar {
+  background:
+    linear-gradient(
+      135deg,
+      var(--recordatorios-acento),
+      var(--recordatorios-secundario)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 10px 22px
+    var(--recordatorios-sombra);
+}
+
+.recordatorios-page
+.btn-secundario {
+  background:
+    var(--recordatorios-info-fondo);
+
+  color:
+    var(--recordatorios-info-texto);
+}
+
+.recordatorios-page
+.btn-pausar {
+  background:
+    var(--recordatorios-advertencia-fondo);
+
+  color:
+    var(--recordatorios-advertencia);
+}
+
+.recordatorios-page
+.btn-eliminar {
+  background:
+    var(--recordatorios-error-fondo);
+
+  color:
+    var(--recordatorios-error);
+}
+
+.recordatorios-page
+.btn-cancelar {
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  color:
+    var(--recordatorios-texto-muted);
+}
+
+/*
+|--------------------------------------------------------------------------
+| BOTÓN BLOQUEADO DEL PLAN FREE
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.btn-principal-bloqueado {
+  background:
+    linear-gradient(
+      135deg,
+      var(--recordatorios-texto-muted),
+      var(--recordatorios-acento)
+    );
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  opacity: 0.76;
+
+  filter:
+    saturate(0.7);
+}
+
+.recordatorios-page
+.btn-principal-bloqueado:hover:not(:disabled) {
+  opacity: 0.9;
+
+  transform:
+    translateY(-1px);
+}
+
+/*
+|--------------------------------------------------------------------------
+| MENSAJE DEL PLAN FREE
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.recordatorios-limite-free {
+  width: fit-content;
+  max-width: 100%;
+
+  margin:
+    12px auto 20px;
+
+  padding:
+    10px 16px;
+
+  border:
+    1px solid
+    var(--recordatorios-acento);
+
+  border-radius:
+    var(--radius-md, 14px);
+
+  background:
+    var(--recordatorios-acento-soft);
+
+  color:
+    var(--recordatorios-texto);
+
+  font-size: 14px;
+
+  text-align: center;
+}
+
+.recordatorios-page
+.recordatorios-limite-free strong {
+  color:
+    var(--recordatorios-acento);
+}
+
+.recordatorios-page
+.recordatorios-limite-free-completo {
+  border-color:
+    var(--recordatorios-advertencia);
+
+  background:
+    var(--recordatorios-advertencia-fondo);
+
+  color:
+    var(--recordatorios-advertencia);
+}
+
+.recordatorios-page
+.recordatorios-limite-free-completo strong {
+  color:
+    var(--recordatorios-advertencia);
+}
+
+/*
+|--------------------------------------------------------------------------
+| LISTA DE ALARMAS
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.seccion-titulo {
+  margin:
+    22px 0 12px;
+
+  color:
+    var(--recordatorios-acento);
+
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.recordatorios-page
+.lista-alarmas {
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+}
+
+.recordatorios-page
+.alarma {
+  display: grid;
+
+  grid-template-columns:
+    110px 1fr auto;
+
+  align-items: center;
+
+  gap: 18px;
+
+  padding: 18px;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-left:
+    5px solid
+    var(--recordatorios-acento);
+
+  border-radius:
+    var(--radius-xl, 20px);
+
+  background:
+    var(--recordatorios-superficie);
+
+  color:
+    var(--recordatorios-texto);
+
+  box-shadow:
+    0 9px 18px
+    var(--recordatorios-sombra);
+
+  transition:
+    transform 0.22s ease,
+    opacity 0.22s ease,
+    background-color 0.4s ease,
+    color 0.3s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.recordatorios-page
+.alarma:hover {
+  transform:
+    translateY(-2px);
+
+  box-shadow:
+    0 16px 30px
+    var(--recordatorios-sombra);
+}
+
+.recordatorios-page
+.alarma.apagada {
+  opacity: 0.72;
+
+  background:
+    var(--recordatorios-superficie-muted);
+}
+
+.recordatorios-page
+.alarma.confirmando {
+  border-color:
+    var(--recordatorios-error);
+}
+
+.recordatorios-page
+.hora {
+  color:
+    var(--recordatorios-texto);
+
+  font-size: 34px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.recordatorios-page
+.alarma.apagada
+.hora {
+  color:
+    var(--recordatorios-texto-muted);
+}
+
+.recordatorios-page
+.detalle strong {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color:
+    var(--recordatorios-texto);
+
+  font-size: 15px;
+}
+
+.recordatorios-page
+.detalle p {
+  margin:
+    0 0 8px;
+
+  color:
+    var(--recordatorios-texto-muted);
+
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.recordatorios-page
+.tiempo-restante {
+  display: inline-block;
+
+  margin-bottom: 9px;
+
+  padding:
+    5px 10px;
+
+  border:
+    1px solid
+    var(--recordatorios-acento);
+
+  border-radius: 999px;
+
+  background:
+    var(--recordatorios-acento-soft);
+
+  color:
+    var(--recordatorios-acento);
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.recordatorios-page
+.alarma.apagada
+.tiempo-restante {
+  border-color:
+    var(--recordatorios-borde);
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  color:
+    var(--recordatorios-texto-muted);
+}
+
+.recordatorios-page
+.dias {
+  display: flex;
+  flex-wrap: wrap;
+
+  gap: 5px;
+}
+
+.recordatorios-page
+.dia-pill {
+  padding:
+    4px 8px;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius: 999px;
+
+  background:
+    var(--recordatorios-acento-soft);
+
+  color:
+    var(--recordatorios-acento);
+
+  font-size: 11px;
+  font-weight: 900;
+}
+
+/*
+|--------------------------------------------------------------------------
+| ACCIONES Y SWITCH
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.acciones-alarma {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+}
+
+.recordatorios-page
+.btn-icono {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius:
+    var(--radius-md, 12px);
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  color:
+    var(--recordatorios-acento);
+
+  box-shadow: none;
+}
+
+.recordatorios-page
+.btn-icono-eliminar {
+  color:
+    var(--recordatorios-error);
+}
+
+.recordatorios-page
+.switch {
+  position: relative;
+
+  display: inline-block;
+
+  width: 54px;
+  min-width: 54px;
+  height: 30px;
+
+  margin: 0;
+
+  cursor: pointer;
+}
+
+.recordatorios-page
+.switch input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: 0;
+  padding: 0;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.recordatorios-page
+.slider {
+  position: absolute;
+
+  inset: 0;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius: 999px;
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  cursor: pointer;
+
+  box-shadow:
+    inset 0 0 0 1px
+    var(--recordatorios-acento-soft);
+
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.recordatorios-page
+.slider::before {
+  content: '';
+
+  position: absolute;
+
+  top: 3px;
+  left: 3px;
+
+  width: 22px;
+  height: 22px;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius: 50%;
+
+  background:
+    var(--recordatorios-texto-muted);
+
+  box-shadow:
+    0 2px 6px
+    var(--recordatorios-sombra);
+
+  transition:
+    transform 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.recordatorios-page
+.switch
+input:checked
++ .slider {
+  border-color:
+    var(--recordatorios-acento);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--recordatorios-acento),
+      var(--recordatorios-secundario)
+    );
+}
+
+.recordatorios-page
+.switch
+input:checked
++ .slider::before {
+  transform:
+    translateX(24px);
+
+  background: #ffffff;
+}
+
+.recordatorios-page
+.switch
+input:disabled
++ .slider {
+  cursor: not-allowed;
+
+  opacity: 0.65;
+}
+
+/*
+|--------------------------------------------------------------------------
+| MENSAJE VACÍO
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.sin-recordatorios {
+  padding:
+    30px 18px;
+
+  border:
+    1px dashed
+    var(--recordatorios-borde);
+
+  border-radius:
+    var(--radius-xl, 20px);
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  color:
+    var(--recordatorios-texto-muted);
+
+  line-height: 1.5;
+
+  text-align: center;
+}
+
+/*
+|--------------------------------------------------------------------------
+| MODAL CREAR Y EDITAR
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.modal {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 100000;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  padding: 18px;
+
+  background:
+    rgba(5, 10, 8, 0.7);
+
+  backdrop-filter:
+    blur(6px);
+}
+
+.recordatorios-page
+.modal.activo {
+  display: flex;
+}
+
+.recordatorios-page
+.modal-contenido {
+  width: 100%;
+  max-width: 520px;
+  max-height: 92vh;
+
+  overflow-y: auto;
+
+  padding: 24px;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius: 26px;
+
+  background:
+    var(--recordatorios-superficie);
+
+  color:
+    var(--recordatorios-texto);
+
+  box-shadow:
+    0 24px 60px
+    rgba(0, 0, 0, 0.45);
+
+  animation:
+    recordatoriosEntradaModal
+    0.25s ease;
+}
+
+@keyframes recordatoriosEntradaModal {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(20px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+.recordatorios-page
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  margin-bottom: 18px;
+}
+
+.recordatorios-page
+.modal-header h2 {
+  margin: 0;
+
+  color:
+    var(--recordatorios-texto);
+
+  font-size: 20px;
+}
+
+.recordatorios-page
+.btn-cerrar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius: 50%;
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  color:
+    var(--recordatorios-texto-muted);
+
+  font-size: 20px;
+
+  box-shadow: none;
+}
+
+.recordatorios-page
+.btn-cerrar:hover {
+  background:
+    var(--recordatorios-error-fondo);
+
+  color:
+    var(--recordatorios-error);
+}
+
+/*
+|--------------------------------------------------------------------------
+| SELECTOR DE HORA
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.selector-hora {
+  margin-bottom: 18px;
+
+  padding: 20px;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius:
+    var(--radius-xl, 22px);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--recordatorios-acento-soft),
+      var(--recordatorios-secundario-soft)
+    );
+
+  text-align: center;
+}
+
+.recordatorios-page
+.hora-preview {
+  margin-bottom: 14px;
+
+  color:
+    var(--recordatorios-acento);
+
+  font-size: 54px;
+  font-weight: 500;
+  letter-spacing: -2px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| CAMPOS DEL FORMULARIO
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color:
+    var(--recordatorios-texto);
+
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.recordatorios-page input,
+.recordatorios-page textarea,
+.recordatorios-page select {
+  width: 100%;
+
+  margin-bottom: 15px;
+
+  padding:
+    13px 14px;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius:
+    var(--radius-md, 12px);
+
+  outline: none;
+
+  background:
+    var(--recordatorios-superficie-muted)
+    !important;
+
+  color:
+    var(--recordatorios-texto)
+    !important;
+
+  caret-color:
+    var(--recordatorios-acento);
+
+  font-size: 14px;
+
+  -webkit-text-fill-color:
+    var(--recordatorios-texto);
+
+  transition:
+    background-color 0.4s ease,
+    color 0.3s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.recordatorios-page textarea {
+  min-height: 82px;
+
+  resize: vertical;
+}
+
+.recordatorios-page
+input::placeholder,
+.recordatorios-page
+textarea::placeholder {
+  color:
+    var(--recordatorios-texto-muted)
+    !important;
+
+  -webkit-text-fill-color:
+    var(--recordatorios-texto-muted);
+
+  opacity: 0.72;
+}
+
+.recordatorios-page
+input:focus,
+.recordatorios-page
+textarea:focus,
+.recordatorios-page
+select:focus {
+  border-color:
+    var(--recordatorios-acento)
+    !important;
+
+  background:
+    var(--recordatorios-superficie)
+    !important;
+
+  color:
+    var(--recordatorios-texto)
+    !important;
+
+  -webkit-text-fill-color:
+    var(--recordatorios-texto);
+
+  box-shadow:
+    0 0 0 4px
+    var(--recordatorios-acento-soft);
+
+  outline: none;
+}
+
+.recordatorios-page
+input:not(:placeholder-shown),
+.recordatorios-page
+textarea:not(:placeholder-shown) {
+  background:
+    var(--recordatorios-superficie-muted)
+    !important;
+
+  color:
+    var(--recordatorios-texto)
+    !important;
+
+  -webkit-text-fill-color:
+    var(--recordatorios-texto);
+}
+
+.recordatorios-page
+select option {
+  background:
+    var(--recordatorios-superficie);
+
+  color:
+    var(--recordatorios-texto);
+}
+
+/*
+|--------------------------------------------------------------------------
+| AUTOCOMPLETADO DEL NAVEGADOR
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+input:-webkit-autofill,
+.recordatorios-page
+input:-webkit-autofill:hover,
+.recordatorios-page
+input:-webkit-autofill:focus,
+.recordatorios-page
+input:-webkit-autofill:active {
+  -webkit-text-fill-color:
+    var(--recordatorios-texto)
+    !important;
+
+  caret-color:
+    var(--recordatorios-texto);
+
+  -webkit-box-shadow:
+    0 0 0 1000px
+    var(--recordatorios-superficie-muted)
+    inset
+    !important;
+
+  box-shadow:
+    0 0 0 1000px
+    var(--recordatorios-superficie-muted)
+    inset
+    !important;
+
+  border-color:
+    var(--recordatorios-acento)
+    !important;
+
+  transition:
+    background-color 9999s ease-out;
+}
+
+html[data-theme="dark"]
+.recordatorios-page input,
+html[data-theme="dark"]
+.recordatorios-page textarea,
+html[data-theme="dark"]
+.recordatorios-page select {
+  background:
+    var(--recordatorios-superficie-muted)
+    !important;
+
+  color:
+    var(--recordatorios-texto)
+    !important;
+
+  -webkit-text-fill-color:
+    var(--recordatorios-texto);
+}
+
+/*
+|--------------------------------------------------------------------------
+| DÍAS DEL FORMULARIO
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.dias-form {
+  display: grid;
+
+  grid-template-columns:
+    repeat(7, 1fr);
+
+  gap: 7px;
+
+  margin-bottom: 16px;
+}
+
+.recordatorios-page
+.dia-check {
+  position: relative;
+
+  margin: 0;
+}
+
+.recordatorios-page
+.dia-check input {
+  position: absolute;
+
+  width: 1px;
+  height: 1px;
+
+  margin: 0;
+  padding: 0;
+
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+.recordatorios-page
+.dia-check span {
+  display: block;
+
+  padding:
+    10px 0;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius:
+    var(--radius-md, 12px);
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  color:
+    var(--recordatorios-texto-muted);
+
+  font-size: 12px;
+  font-weight: 900;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.recordatorios-page
+.dia-check
+span:hover {
+  transform:
+    translateY(-1px);
+
+  border-color:
+    var(--recordatorios-acento);
+}
+
+.recordatorios-page
+.dia-check
+input:checked
++ span {
+  border-color:
+    var(--recordatorios-acento);
+
+  background:
+    var(--recordatorios-acento-soft);
+
+  color:
+    var(--recordatorios-acento);
+}
+
+/*
+|--------------------------------------------------------------------------
+| ACCIONES DEL MODAL
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.modal-acciones {
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 10px;
+  flex-wrap: wrap;
+
+  margin-top: 8px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| TOASTS
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.recordatorios-toast-container {
+  position: fixed !important;
+
+  top: 24px !important;
+  right: 24px !important;
+  left: auto !important;
+  bottom: auto !important;
+
+  z-index: 200000;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  gap: 12px;
+
+  pointer-events: none;
+}
+
+.recordatorios-page
+.recordatorios-toast {
+  width: 330px;
+  max-width:
+    calc(100vw - 30px);
+
+  padding: 18px;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-left:
+    7px solid
+    var(--recordatorios-acento);
+
+  border-radius:
+    var(--radius-lg, 17px);
+
+  background:
+    var(--recordatorios-superficie);
+
+  color:
+    var(--recordatorios-texto);
+
+  box-shadow:
+    0 18px 35px
+    var(--recordatorios-sombra);
+
+  animation:
+    recordatoriosToastEntrada
+    0.4s ease;
+
+  pointer-events: auto;
+}
+
+.recordatorios-page
+.recordatorios-toast h3 {
+  margin:
+    0 0 8px;
+
+  color:
+    var(--recordatorios-texto);
+
+  font-size: 17px;
+}
+
+.recordatorios-page
+.recordatorios-toast p {
+  margin: 0;
+
+  color:
+    var(--recordatorios-texto-muted);
+
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.recordatorios-page
+.recordatorios-toast button {
+  width: auto;
+
+  margin-top: 12px;
+
+  padding:
+    8px 12px;
+
+  border-radius:
+    var(--radius-sm, 10px);
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--recordatorios-acento),
+      var(--recordatorios-secundario)
+    );
+
+  color: #ffffff;
+
+  font-size: 13px;
+}
+
+@keyframes recordatoriosToastEntrada {
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(80px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(0);
+  }
+}
+
+/*
+|--------------------------------------------------------------------------
+| CONFIRMACIÓN PARA ELIMINAR
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.confirmar-eliminar {
+  min-width: 210px;
+
+  padding: 12px;
+
+  border:
+    1px solid
+    var(--recordatorios-error);
+
+  border-radius:
+    var(--radius-lg, 16px);
+
+  background:
+    var(--recordatorios-error-fondo);
+}
+
+.recordatorios-page
+.confirmar-eliminar p {
+  margin:
+    0 0 10px;
+
+  color:
+    var(--recordatorios-peligro-texto);
+
+  font-size: 12px;
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.recordatorios-page
+.botones-confirmar {
+  display: flex;
+  justify-content: flex-end;
+
+  gap: 8px;
+}
+
+.recordatorios-page
+.btn-confirmar-no,
+.recordatorios-page
+.btn-confirmar-si {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 36px;
+  min-width: 36px;
+  height: 34px;
+
+  padding: 0;
+
+  border-radius:
+    var(--radius-md, 11px);
+
+  font-size: 14px;
+
+  box-shadow: none;
+}
+
+.recordatorios-page
+.btn-confirmar-no {
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  color:
+    var(--recordatorios-texto-muted);
+}
+
+.recordatorios-page
+.btn-confirmar-si {
+  background:
+    var(--recordatorios-error-fondo);
+
+  color:
+    var(--recordatorios-error);
+}
+
+/*
+|--------------------------------------------------------------------------
+| PAGINACIÓN
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.recordatorios-paginacion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+  flex-wrap: wrap;
+
+  margin-top: 24px;
+
+  padding-bottom: 4px;
+}
+
+.recordatorios-page
+.recordatorios-paginas {
+  display: flex;
+  align-items: center;
+
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.recordatorios-page
+.recordatorios-btn-salto-pagina,
+.recordatorios-page
+.recordatorios-numero-pagina {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  min-width: 38px;
+  height: 38px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius:
+    var(--radius-md, 12px);
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  color:
+    var(--recordatorios-texto);
+
+  font-size: 15px;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.recordatorios-page
+.recordatorios-btn-salto-pagina {
+  font-size: 20px;
+}
+
+.recordatorios-page
+.recordatorios-numero-pagina-activa {
+  border-color:
+    transparent;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--recordatorios-acento),
+      var(--recordatorios-secundario)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 8px 18px
+    var(--recordatorios-sombra);
+}
+
+.recordatorios-page
+.recordatorios-btn-salto-pagina:disabled,
+.recordatorios-page
+.recordatorios-numero-pagina:disabled {
+  opacity: 0.45;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+/*
+|--------------------------------------------------------------------------
+| MODAL PREMIUM
+|--------------------------------------------------------------------------
+*/
+
+.recordatorios-page
+.recordatorios-premium-overlay {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 100001;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  background:
+    rgba(5, 10, 8, 0.72);
+
+  backdrop-filter:
+    blur(7px);
+
+  animation:
+    recordatoriosPremiumFondo
+    0.22s ease;
+}
+
+@keyframes recordatoriosPremiumFondo {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.recordatorios-page
+.recordatorios-premium-card {
+  width:
+    min(
+      480px,
+      calc(100vw - 32px)
+    );
+
+  overflow: hidden;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius: 26px;
+
+  background:
+    var(--recordatorios-superficie);
+
+  color:
+    var(--recordatorios-texto);
+
+  box-shadow:
+    0 28px 70px
+    rgba(0, 0, 0, 0.48);
+
+  animation:
+    recordatoriosEntradaModal
+    0.25s ease;
+}
+
+.recordatorios-page
+.recordatorios-premium-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 14px;
+
+  padding:
+    22px 24px 0;
+}
+
+.recordatorios-page
+.recordatorios-premium-header h2 {
+  margin: 0;
+
+  color:
+    var(--recordatorios-texto);
+
+  font-size: 24px;
+}
+
+.recordatorios-page
+.recordatorios-premium-cerrar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 42px;
+  min-width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius: 50%;
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  color:
+    var(--recordatorios-texto-muted);
+
+  font-size: 20px;
+}
+
+.recordatorios-page
+.recordatorios-premium-cerrar:hover {
+  background:
+    var(--recordatorios-error-fondo);
+
+  color:
+    var(--recordatorios-error);
+}
+
+.recordatorios-page
+.recordatorios-premium-body {
+  padding:
+    24px 28px 12px;
+
+  text-align: center;
+}
+
+.recordatorios-page
+.recordatorios-premium-icono {
+  display: grid;
+  place-items: center;
+
+  width: 72px;
+  height: 72px;
+
+  margin:
+    0 auto 16px;
+
+  border:
+    1px solid
+    var(--recordatorios-acento);
+
+  border-radius: 50%;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--recordatorios-acento-soft),
+      var(--recordatorios-secundario-soft)
+    );
+
+  font-size: 31px;
+
+  box-shadow:
+    0 10px 24px
+    var(--recordatorios-sombra);
+}
+
+.recordatorios-page
+.recordatorios-premium-titulo {
+  margin:
+    0 0 10px;
+
+  color:
+    var(--recordatorios-texto);
+
+  font-size: 22px;
+  line-height: 1.25;
+}
+
+.recordatorios-page
+.recordatorios-premium-descripcion {
+  max-width: 390px;
+
+  margin: 0 auto;
+
+  color:
+    var(--recordatorios-texto-muted);
+
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.recordatorios-page
+.recordatorios-premium-uso {
+  margin:
+    16px auto 0;
+
+  padding:
+    12px 14px;
+
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  border-radius:
+    var(--radius-lg, 16px);
+
+  background:
+    var(--recordatorios-acento-soft);
+
+  color:
+    var(--recordatorios-texto);
+
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.recordatorios-page
+.recordatorios-premium-uso strong {
+  color:
+    var(--recordatorios-acento);
+}
+
+.recordatorios-page
+.recordatorios-premium-acciones {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 12px;
+
+  padding:
+    18px 24px 24px;
+}
+
+.recordatorios-page
+.recordatorios-premium-btn-secundario,
+.recordatorios-page
+.recordatorios-premium-btn-pagar {
+  width: 100%;
+
+  padding:
+    12px 18px;
+
+  border-radius:
+    var(--radius-lg, 16px);
+
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.recordatorios-page
+.recordatorios-premium-btn-secundario {
+  border:
+    1px solid
+    var(--recordatorios-borde);
+
+  background:
+    var(--recordatorios-superficie-muted);
+
+  color:
+    var(--recordatorios-texto);
+}
+
+.recordatorios-page
+.recordatorios-premium-btn-pagar {
+  background:
+    linear-gradient(
+      135deg,
+      var(--recordatorios-acento),
+      var(--recordatorios-secundario)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 10px 22px
+    var(--recordatorios-sombra);
+}
+
+/*
+|--------------------------------------------------------------------------
+| AJUSTES DEL TEMA OSCURO
+|--------------------------------------------------------------------------
+*/
+
+html[data-theme="dark"]
+.recordatorios-page
+.panel,
+html[data-theme="dark"]
+.recordatorios-page
+.alarma,
+html[data-theme="dark"]
+.recordatorios-page
+.modal-contenido,
+html[data-theme="dark"]
+.recordatorios-page
+.recordatorios-premium-card,
+html[data-theme="dark"]
+.recordatorios-page
+.recordatorios-toast {
+  background:
+    var(--recordatorios-superficie);
+
+  color:
+    var(--recordatorios-texto);
+}
+
+html[data-theme="dark"]
+.recordatorios-page
+input:focus,
+html[data-theme="dark"]
+.recordatorios-page
+textarea:focus,
+html[data-theme="dark"]
+.recordatorios-page
+select:focus {
+  background:
+    var(--recordatorios-superficie-muted)
+    !important;
+
+  color:
+    var(--recordatorios-texto)
+    !important;
+}
+
+html[data-theme="dark"]
+.recordatorios-page
+input:-webkit-autofill,
+html[data-theme="dark"]
+.recordatorios-page
+input:-webkit-autofill:hover,
+html[data-theme="dark"]
+.recordatorios-page
+input:-webkit-autofill:focus,
+html[data-theme="dark"]
+.recordatorios-page
+input:-webkit-autofill:active {
+  -webkit-text-fill-color:
+    var(--recordatorios-texto)
+    !important;
+
+  caret-color:
+    var(--recordatorios-texto);
+
+  -webkit-box-shadow:
+    0 0 0 1000px
+    var(--recordatorios-superficie-muted)
+    inset
+    !important;
+
+  box-shadow:
+    0 0 0 1000px
+    var(--recordatorios-superficie-muted)
+    inset
+    !important;
+}
+
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 780px) {
+  .recordatorios-page
+  .panel {
+    padding:
+      20px 16px;
+  }
+
+  .recordatorios-page
+  .recordatorios-encabezado {
+    min-height: auto;
+
+    padding: 21px;
+
+    gap: 16px;
+  }
+
+  .recordatorios-page
+  .recordatorios-encabezado h1 {
+    font-size: 24px;
+  }
+
+  .recordatorios-page
+  .recordatorios-encabezado p {
+    font-size: 13px;
+  }
+
+  .recordatorios-page
+  .recordatorios-plan {
+    flex-basis: 88px;
+
+    width: 88px;
+    min-width: 88px;
+    min-height: 65px;
+  }
+
+  .recordatorios-page
+  .resumen {
+    grid-template-columns: 1fr;
+  }
+
+  .recordatorios-page
+  .alarma {
+    grid-template-columns: 1fr;
+  }
+
+  .recordatorios-page
+  .hora {
+    font-size: 42px;
+  }
+
+  .recordatorios-page
+  .acciones-alarma {
+    align-self: start;
+
+    flex-wrap: wrap;
+  }
+
+  .recordatorios-page
+  .confirmar-eliminar {
+    width: 100%;
+  }
+
+  .recordatorios-page
+  .dias-form {
+    grid-template-columns:
+      repeat(4, 1fr);
+  }
+
+  .recordatorios-page
+  .barra-acciones {
+    justify-content: center;
+  }
+
+  .recordatorios-page
+  .barra-acciones
+  .btn-principal {
+    width: 100%;
+    max-width: none;
+
+    margin-left: 0;
+  }
+
+  .recordatorios-page
+  .recordatorios-btn-salto-pagina,
+  .recordatorios-page
+  .recordatorios-numero-pagina {
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
+
+    font-size: 14px;
+  }
+
+  .recordatorios-page
+  .recordatorios-btn-salto-pagina {
+    font-size: 19px;
+  }
+
+  .recordatorios-page
+  .recordatorios-toast-container {
+    top: 15px !important;
+    right: 15px !important;
+    left: auto !important;
+
+    align-items: flex-end;
+  }
+
+  .recordatorios-page
+  .recordatorios-toast {
+    width: 320px;
+
+    max-width:
+      calc(100vw - 30px);
+  }
+}
+
+@media (max-width: 600px) {
+  .recordatorios-page
+  .app {
+    padding:
+      16px 12px 80px;
+  }
+
+  .recordatorios-page
+  .modal-contenido {
+    padding: 20px;
+  }
+
+  .recordatorios-page
+  .modal-acciones {
+    flex-direction: column;
+  }
+
+  .recordatorios-page
+  .modal-acciones button {
+    width: 100%;
+  }
+
+  .recordatorios-page
+  .recordatorios-premium-header {
+    padding:
+      18px 18px 0;
+  }
+
+  .recordatorios-page
+  .recordatorios-premium-header h2 {
+    font-size: 21px;
+  }
+
+  .recordatorios-page
+  .recordatorios-premium-body {
+    padding:
+      22px 20px 10px;
+  }
+
+  .recordatorios-page
+  .recordatorios-premium-acciones {
+    grid-template-columns: 1fr;
+
+    padding:
+      16px 18px 20px;
+  }
+}
+
+@media (max-width: 520px) {
+  .recordatorios-page
+  .recordatorios-encabezado {
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 20px;
+  }
+
+  .recordatorios-page
+  .recordatorios-encabezado h1 {
+    font-size: 22px;
+  }
+
+  .recordatorios-page
+  .recordatorios-plan {
+    flex: none;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 52px;
+
+    flex-direction: row;
+
+    gap: 8px;
+  }
+
+  .recordatorios-page
+  .recordatorios-plan span {
+    margin: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .recordatorios-page
+  .dias-form {
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+  .recordatorios-page
+  .hora-preview {
+    font-size: 44px;
+  }
+}

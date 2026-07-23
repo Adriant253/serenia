@@ -29,6 +29,28 @@ import {
 import recuperarContrasenaTemplate
 from './templates/recuperarContrasenaTemplate.js'
 
+import {
+    organizarPrioridadesRouter,
+    iniciarCorreoOrganizarPrioridades
+} from './routes/organizarPrioridades.routes.js'
+
+
+
+import {
+    recordatoriosDescansoRouter,
+    iniciarCorreoRecordatoriosDescanso
+} from './routes/recordatoriosDescanso.routes.js'
+
+
+import {
+    meditacionRouter
+} from './routes/meditacion.routes.js'
+
+import {
+    favoritosGuiasMeditacionRouter
+} from './routes/favoritosGuiasMeditacion.routes.js'
+
+
 const app = express()
 
 const puerto = Number(process.env.PORT) || 3000
@@ -67,6 +89,47 @@ app.use(cors({
     }
 }))
 app.use(express.json())
+/*
+|--------------------------------------------------------------------------
+| ORGANIZAR PRIORIDADES
+|--------------------------------------------------------------------------
+*/
+
+
+app.use(
+    '/api/organizar-prioridades',
+    organizarPrioridadesRouter
+)
+
+/*
+|--------------------------------------------------------------------------
+| RECORDATORIOS DESCANSO
+|--------------------------------------------------------------------------
+*/
+
+app.use(
+    '/api/recordatorios-descanso',
+    recordatoriosDescansoRouter
+)
+
+
+/*
+|--------------------------------------------------------------------------
+| MEDITACIÓN
+|--------------------------------------------------------------------------
+*/
+app.use(
+    '/api/meditaciones/guias/favoritos',
+    favoritosGuiasMeditacionRouter
+)
+
+app.use(
+    '/api/meditaciones',
+    meditacionRouter
+)
+
+
+
 
 imprimirEstadoEntorno()
 
@@ -373,6 +436,89 @@ app.post('/api/registro', async (req, res) => {
     }
 
 })
+
+/*
+|--------------------------------------------------------------------------
+| USUARIOS - CAMBIAR SUSCRIPCIÓN A PREMIUM
+|--------------------------------------------------------------------------
+*/
+
+app.put('/api/usuarios/activar-premium', async (req, res) => {
+
+  try {
+
+    const {
+      id_usuario
+    } = req.body
+
+    /*
+    |--------------------------------------------------------------------------
+    | VALIDACIÓN DEL ID
+    |--------------------------------------------------------------------------
+    */
+
+    const idUsuarioNumero = Number(id_usuario)
+
+    if (
+      !Number.isInteger(idUsuarioNumero) ||
+      idUsuarioNumero <= 0
+    ) {
+      return res.status(400).json({
+        success: 0,
+        mensaje: 'Debe proporcionar un id_usuario válido.'
+      })
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | LLAMAR PROCEDIMIENTO ALMACENADO
+    |--------------------------------------------------------------------------
+    */
+
+    const [resultado] = await pool.query(
+      'CALL spCambiarUsuarioPremium(?)',
+      [
+        idUsuarioNumero
+      ]
+    )
+
+    const respuesta =
+      resultado?.[0]?.[0]
+
+    if (!respuesta) {
+      return res.status(500).json({
+        success: 0,
+        mensaje: 'El procedimiento no devolvió una respuesta.'
+      })
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | DEVOLVER RESULTADO
+    |--------------------------------------------------------------------------
+    */
+
+    res.json(respuesta)
+
+  } catch (error) {
+
+    console.error(
+      'Error cambiando usuario a Premium:',
+      error
+    )
+
+    res.status(500).json({
+      success: 0,
+      mensaje: 'Error interno del servidor.',
+      error: error.message
+    })
+
+  }
+
+})
+
+
+
 
 
 app.get('/api/test-correo', async (req, res) => {
@@ -935,8 +1081,8 @@ app.post(
 
     }
 )
-
-
+iniciarCorreoOrganizarPrioridades()
+iniciarCorreoRecordatoriosDescanso()
 app.listen(puerto, () => {
 
     console.log(

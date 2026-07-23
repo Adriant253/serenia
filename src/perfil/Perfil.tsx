@@ -36,8 +36,8 @@ function Perfil() {
   const { tema, setTema } = useTheme()
 
   const [prefs, setPrefs] =
-    useState<PreferenciasPerfil>(
-      obtenerPreferencias
+    useState<PreferenciasPerfil>(() =>
+      obtenerPreferencias(usuario?.id_usuario)
     )
 
   const [guardado, setGuardado] =
@@ -50,7 +50,7 @@ function Perfil() {
     setTema(id)
     const nuevasPrefs = { ...prefs, tema: id }
     setPrefs(nuevasPrefs)
-    guardarPreferencias(nuevasPrefs)
+    guardarPreferencias(nuevasPrefs, usuario?.id_usuario)
     setTemaAplicado(true)
     window.setTimeout(() => {
       setTemaAplicado(false)
@@ -72,7 +72,16 @@ function Perfil() {
     e: React.FormEvent
   ) => {
     e.preventDefault()
-    guardarPreferencias(prefs)
+    const prefsConTema = {
+      ...prefs,
+      tema
+    }
+    setPrefs(prefsConTema)
+    guardarPreferencias(
+      prefsConTema,
+      usuario?.id_usuario
+    )
+    setTema(tema)
     setGuardado(true)
 
     window.setTimeout(() => {
