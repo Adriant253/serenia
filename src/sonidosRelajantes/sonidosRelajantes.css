@@ -1048,6 +1048,15 @@ html[data-theme="forest"]
   font-weight: 700;
 }
 
+.serenia-dark-theme
+.player-track .audio-error {
+  margin: 4px 0 0;
+  color: var(--sonidos-error);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
 /*
 |--------------------------------------------------------------------------
 | CONTROLES DEL REPRODUCTOR

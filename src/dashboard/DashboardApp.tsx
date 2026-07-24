@@ -12,10 +12,6 @@ import {
   sembrarDatosDemo
 } from '../services/seedDemoData'
 
-import {
-  aplicarTemaVisual
-} from '../services/themeService'
-
 import Datos from './Datos'
 
 import EjerciciosEstres from '../ejercicios/EjerciciosEstres'
@@ -47,7 +43,13 @@ import {
 import './Dashboard.css'
 import '../styles/app-ui.css'
 
-function DashboardApp() {
+interface DashboardAppProps {
+  onCerrarSesion: () => void
+}
+
+function DashboardApp({
+  onCerrarSesion
+}: DashboardAppProps) {
   const navigate =
     useNavigate()
 
@@ -75,16 +77,6 @@ function DashboardApp() {
      * Ignorar datos inválidos
      * de la sesión.
      */
-  }
-
-  const cerrarSesion = () => {
-    localStorage.removeItem(
-      'usuario'
-    )
-
-    aplicarTemaVisual('serenia')
-
-    window.location.href = '/'
   }
 
   const abrirSuscripcion = (
@@ -139,7 +131,7 @@ function DashboardApp() {
   return (
     <div className="dashboard-layout">
       <SidebarNav
-        onLogout={cerrarSesion}
+        onLogout={onCerrarSesion}
       />
 
       <main className="dashboard-main">
@@ -244,6 +236,16 @@ function DashboardApp() {
             path="sonidos-relajantes"
             element={
               <SonidosRelajantes />
+            }
+          />
+
+          <Route
+            path="*"
+            element={
+              <Navigate
+                to="inicio"
+                replace
+              />
             }
           />
         </Routes>
